@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CV_Nguyen_Van_Minh</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class', // Enable class-based dark mode
+        theme: {
+          extend: {
+            colors: {
+              primary: '#0f172a', // Slate 900
+              secondary: '#334155', // Slate 700
+              accent: '#3b82f6', // Blue 500
+              'vn-red': '#DA251D', // Vietnam Flag Red
+              'vn-yellow': '#FFFF00', // Vietnam Flag Yellow
+              'vn-red-dark': '#9e1b15',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              script: ['Great Vibes', 'cursive'],
+              display: ['Oswald', 'sans-serif'],
+            },
+            animation: {
+              'spin-slow': 'spin 10s linear infinite', // Slower spin for the star
+              'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'bounce-slow': 'bounce 3s infinite',
+              'marquee': 'marquee 25s linear infinite',
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Great+Vibes&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'Inter', sans-serif; }
+      /* Smooth scrolling */
+      html { scroll-behavior: smooth; }
+
+      /* Custom Animations */
+      @keyframes marquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+      }
+      
+      @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+      .animate-blob {
+        animation: blob 7s infinite;
+      }
+      .animation-delay-2000 {
+        animation-delay: 2s;
+      }
+      .animation-delay-4000 {
+        animation-delay: 4s;
+      }
+
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in-up {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0; /* Start hidden */
+      }
+      
+      /* Stagger delays */
+      .delay-100 { animation-delay: 100ms; }
+      .delay-200 { animation-delay: 200ms; }
+      .delay-300 { animation-delay: 300ms; }
+      .delay-400 { animation-delay: 400ms; }
+      .delay-500 { animation-delay: 500ms; }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+
+      @keyframes scaleIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      .animate-scale-in {
+        animation: scaleIn 0.3s ease-out forwards;
+      }
+      
+      /* Audio Wave Animation */
+      @keyframes wave {
+        0%, 100% { height: 10%; }
+        50% { height: 100%; }
+      }
+      .audio-bar {
+        animation: wave 1s ease-in-out infinite;
+      }
+      .audio-bar:nth-child(1) { animation-delay: 0.1s; }
+      .audio-bar:nth-child(2) { animation-delay: 0.3s; }
+      .audio-bar:nth-child(3) { animation-delay: 0.5s; }
+      .audio-bar:nth-child(4) { animation-delay: 0.2s; }
+      .audio-bar:nth-child(5) { animation-delay: 0.4s; }
+
+      /* Print Optimization Helper */
+      .break-inside-avoid {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      @media print {
+        @page {
+          margin: 0.5cm;
+        }
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          background-color: white !important;
+        }
+        /* Hide scrollbars in print */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        /* Force text colors for readability */
+        .text-slate-300, .text-slate-400, .text-slate-500 {
+            color: #4b5563 !important; /* slate-600 */
+        }
+        .text-white {
+            color: #111827 !important; /* slate-900 */
+        }
+        .bg-slate-900, .bg-vn-red, .bg-vn-red-dark {
+            background-color: #f8fafc !important; /* slate-50 */
+            color: #111827 !important;
+        }
+        /* Hide decorative blurs and animations */
+        .filter.blur-3xl {
+            display: none !important;
+        }
+        .animate-fade-in-up, .animate-blob, .animate-spin-slow, .animate-pulse-slow, .animate-marquee {
+            animation: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+            display: none !important;
+        }
+        /* Fix dark mode overrides in print */
+        .dark {
+            color-scheme: light !important;
+        }
+        .dark body {
+            background-color: white !important;
+            color: black !important;
+        }
+        .dark .bg-slate-900, .dark .bg-slate-800 {
+            background-color: white !important;
+            color: black !important;
+        }
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-slate-50 text-slate-800 antialiased transition-colors duration-300 dark:bg-slate-950 dark:text-slate-100">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
