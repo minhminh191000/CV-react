@@ -142,9 +142,9 @@ const ScrollProgressLine: React.FC = () => {
     window.addEventListener('scroll', calculatePath);
     
     // Use ResizeObserver to redraw path when body height changes (e.g. search filter)
-    // IMPORTANT: The container itself is now CSS-based (inset-0), so we only need to recalc the PATH coordinates.
     const resizeObserver = new ResizeObserver(() => {
-      calculatePath();
+        // Wrap in RAF to ensure layout is done and avoid loop
+        requestAnimationFrame(() => calculatePath());
     });
     resizeObserver.observe(document.body);
     

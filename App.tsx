@@ -15,14 +15,14 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        {/* Changed bg-white to bg-slate-50 for softer light mode, and dark:bg-slate-950 for dark mode */}
-        <div className="min-h-screen flex flex-col font-sans text-slate-900 bg-slate-50 dark:bg-slate-950 dark:text-slate-200 relative transition-colors duration-500">
+        {/* Updated layout wrapper for Sticky Footer support */}
+        <div className="min-h-screen flex flex-col font-sans text-slate-900 bg-slate-50 dark:bg-slate-950 dark:text-slate-200 relative transition-colors duration-500 overflow-x-hidden w-full">
           <AmbientBackground />
           <ClickStarEffect />
           <ScrollProgressLine />
           <Header />
           
-          <main className="flex-grow">
+          <main className="flex-grow w-full">
             <Experience />
             <Skills />
             <Projects />
