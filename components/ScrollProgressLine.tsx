@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from 'react';
 const ScrollProgressLine: React.FC = () => {
   const [pathData, setPathData] = useState('');
   const [totalLength, setTotalLength] = useState(0);
-  const [containerHeight, setContainerHeight] = useState('100%');
   
   // Refs for direct DOM manipulation
   const svgRef = useRef<SVGSVGElement>(null);
@@ -26,10 +25,6 @@ const ScrollProgressLine: React.FC = () => {
     const horizontalConnector = document.getElementById('cv-horizontal-connector');
     const horizontalTrack = document.getElementById('cv-horizontal-track');
     
-    // Ensure container covers full scroll height
-    const docHeight = document.documentElement.scrollHeight;
-    setContainerHeight(`${docHeight}px`);
-    
     if (!profileImg || !timeline) return;
 
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -46,16 +41,12 @@ const ScrollProgressLine: React.FC = () => {
     const startY = imgRect.bottom + scrollTop;
 
     // Experience Left Line position correction
-    // Mobile dots are usually shifted slightly relative to the container edge.
-    // In Experience.tsx: dots are absolute left-[-5px]. Container is relative.
-    // We adjust verticalLineX to align visually with the dots.
-    const verticalLineX = timelineRect.left + 6; // +6px nudge to hit the center of the bullets on mobile/desktop
+    const verticalLineX = timelineRect.left + 6; 
     
     const expStartY = absTimelineTop + 30; 
     const expEndY = timelineRect.bottom + scrollTop;
 
-    // Dynamic Control Points (Bezier Curve)
-    // Adjust control points based on distance to avoid loops on short screens
+    // Dynamic Control Points
     const distY = expStartY - startY;
     const controlPointOffset = Math.min(150, Math.max(50, distY / 2));
 
@@ -73,24 +64,15 @@ const ScrollProgressLine: React.FC = () => {
     if (horizontalConnector && horizontalTrack) {
         const trackRect = horizontalTrack.getBoundingClientRect();
         
-        // We want to turn from verticalLineX at expEndY to the horizontal track
         const horizontalY = trackRect.top + scrollTop; 
         const horizontalEndX = trackRect.right;
-
-        // Radius for the 90 degree turn
         const radius = 30;
         
-        // Ensure we have space to curve
-        // If vertical section ends too close or below the horizontal target, simply connect straight
         if (horizontalY > expEndY + radius) {
-             // Continue vertical down to turn point
              d += ` L ${verticalLineX} ${horizontalY - radius}`;
-             // Quadratic curve to turn right
              d += ` Q ${verticalLineX} ${horizontalY} ${verticalLineX + radius} ${horizontalY}`;
-             // Horizontal line across
              d += ` L ${horizontalEndX} ${horizontalY}`;
         } else {
-             // Fallback: Direct line logic for tight spaces
              d += ` L ${verticalLineX} ${horizontalY} L ${horizontalEndX} ${horizontalY}`;
         }
     }
@@ -109,24 +91,21 @@ const ScrollProgressLine: React.FC = () => {
   // Animation Loop
   useEffect(() => {
     const animate = () => {
-      // Logic: Calculate how much of the path should be shown based on scroll position
+      // Calculate scroll percentage
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const scrollTop = window.scrollY;
       
-      // Calculate scroll percentage
       let scrollPercent = 0;
       if (docHeight > 0) {
         scrollPercent = scrollTop / docHeight;
       }
       
-      // Accelerate the filling slightly so it finishes before the absolute bottom
       scrollPercent = Math.min(scrollPercent * 1.15, 1);
 
       if (totalLength > 0) {
           targetLengthRef.current = totalLength * scrollPercent;
       }
 
-      // Smooth interpolation (Lerp)
       currentLengthRef.current = lerp(currentLengthRef.current, targetLengthRef.current, 0.1);
 
       if (pathRef.current && glowPathRef.current) {
@@ -135,17 +114,15 @@ const ScrollProgressLine: React.FC = () => {
         pathRef.current.style.strokeDashoffset = `${dashOffset}`;
         glowPathRef.current.style.strokeDashoffset = `${dashOffset}`;
 
-        // Move the glowing head
         if (headRef.current && currentLengthRef.current > 0 && currentLengthRef.current < totalLength) {
            try {
                const point = pathRef.current.getPointAtLength(currentLengthRef.current);
                headRef.current.setAttribute('transform', `translate(${point.x}, ${point.y})`);
                headRef.current.style.opacity = '1';
            } catch (e) {
-               // Ignore geometry errors during layout shifts
+               // Ignore geometry errors
            }
         } else if (headRef.current) {
-            // Hide head at start or very end if desired
             headRef.current.style.opacity = currentLengthRef.current < 5 ? '0' : '1';
         }
       }
@@ -159,28 +136,27 @@ const ScrollProgressLine: React.FC = () => {
 
   // Handle Resize and Init
   useEffect(() => {
-    // Initial calc
     setTimeout(calculatePath, 100); 
 
     window.addEventListener('resize', calculatePath);
-    // Recalculate on scroll to handle dynamic UI changes (like sticky headers or expanding cards)
     window.addEventListener('scroll', calculatePath);
     
-    // Periodic check for layout shifts (e.g., images loading)
-    const timer = setInterval(calculatePath, 1000);
+    // Use ResizeObserver to redraw path when body height changes (e.g. search filter)
+    // IMPORTANT: The container itself is now CSS-based (inset-0), so we only need to recalc the PATH coordinates.
+    const resizeObserver = new ResizeObserver(() => {
+      calculatePath();
+    });
+    resizeObserver.observe(document.body);
     
     return () => {
         window.removeEventListener('resize', calculatePath);
         window.removeEventListener('scroll', calculatePath);
-        clearInterval(timer);
+        resizeObserver.disconnect();
     };
   }, []);
 
   return (
-    <div 
-      className="absolute top-0 left-0 w-full pointer-events-none z-0 overflow-hidden"
-      style={{ height: containerHeight }}
-    >
+    <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
       <svg 
         ref={svgRef}
         className="w-full h-full block"
@@ -198,7 +174,6 @@ const ScrollProgressLine: React.FC = () => {
           </filter>
         </defs>
 
-        {/* The faint background track */}
         <path
           d={pathData}
           fill="none"
@@ -208,7 +183,6 @@ const ScrollProgressLine: React.FC = () => {
           className="opacity-20 dark:opacity-10"
         />
 
-        {/* The Glow effect behind the beam */}
         <path
           ref={glowPathRef}
           d={pathData}
@@ -222,7 +196,6 @@ const ScrollProgressLine: React.FC = () => {
           className="opacity-60"
         />
 
-        {/* The main colored beam */}
         <path
           ref={pathRef}
           d={pathData}
@@ -234,7 +207,6 @@ const ScrollProgressLine: React.FC = () => {
           strokeDashoffset={totalLength}
         />
 
-        {/* The Head Particle */}
         <g ref={headRef} className="transition-opacity duration-300 opacity-0">
           <circle r="8" fill="#DA251D" className="opacity-50" filter="url(#strong-glow)" />
           <circle r="4" fill="#FFFF00" />

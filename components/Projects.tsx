@@ -124,70 +124,72 @@ const Projects: React.FC = () => {
                     </div>
                 </div>
 
-                {/* Grid */}
-                {visibleProjects.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10 animate-fade-in-up">
-                    {visibleProjects.map((project, index) => (
-                      <div 
-                        key={project.id} 
-                        onClick={() => setSelectedProject(project)}
-                        className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-xl border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:shadow-vn-red/10 hover:-translate-y-2 transition-all duration-300 flex flex-col group/card cursor-pointer relative break-inside-avoid"
-                      >
-                        {/* Top Gradient Bar */}
-                        <div className="h-2 bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200 dark:from-slate-700 dark:via-slate-600 dark:to-slate-700 group-hover/card:from-vn-red group-hover/card:via-orange-500 group-hover/card:to-vn-yellow transition-all duration-500"></div>
-                        
-                        <div className="p-8 flex-1 flex flex-col relative">
-                          {/* Background number watermark */}
-                          <div className="absolute -right-4 -bottom-4 text-[100px] font-display font-bold text-slate-50 dark:text-slate-900/50 pointer-events-none select-none z-0 group-hover/card:text-red-50 dark:group-hover/card:text-red-900/10 transition-colors">
-                              {index + 1}
-                          </div>
+                {/* Grid - Added min-height to reduce layout shift/footer jump */}
+                <div className="min-h-[50vh]">
+                  {visibleProjects.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10 animate-fade-in-up">
+                      {visibleProjects.map((project, index) => (
+                        <div 
+                          key={project.id} 
+                          onClick={() => setSelectedProject(project)}
+                          className="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-xl border border-slate-100 dark:border-slate-700 hover:shadow-2xl hover:shadow-vn-red/10 hover:-translate-y-2 transition-all duration-300 flex flex-col group/card cursor-pointer relative break-inside-avoid"
+                        >
+                          {/* Top Gradient Bar */}
+                          <div className="h-2 bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200 dark:from-slate-700 dark:via-slate-600 dark:to-slate-700 group-hover/card:from-vn-red group-hover/card:via-orange-500 group-hover/card:to-vn-yellow transition-all duration-500"></div>
+                          
+                          <div className="p-8 flex-1 flex flex-col relative">
+                            {/* Background number watermark */}
+                            <div className="absolute -right-4 -bottom-4 text-[100px] font-display font-bold text-slate-50 dark:text-slate-900/50 pointer-events-none select-none z-0 group-hover/card:text-red-50 dark:group-hover/card:text-red-900/10 transition-colors">
+                                {index + 1}
+                            </div>
 
-                          <div className="relative z-10">
-                              <div className="flex justify-between items-start mb-4">
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 leading-tight group-hover/card:text-vn-red transition-colors font-display tracking-wide">{project.name}</h3>
-                              </div>
-                              
-                              <div className="mb-6 flex flex-wrap gap-2">
-                                  <span className="text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-600 shadow-sm">
-                                      {project.period}
-                                  </span>
-                                  <span className="text-xs font-bold bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">
-                                      {project.customer}
-                                  </span>
-                              </div>
-                              
-                              <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed line-clamp-3 min-h-[4.5em]">
-                                {project.description}
-                              </p>
+                            <div className="relative z-10">
+                                <div className="flex justify-between items-start mb-4">
+                                  <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 leading-tight group-hover/card:text-vn-red transition-colors font-display tracking-wide">{project.name}</h3>
+                                </div>
+                                
+                                <div className="mb-6 flex flex-wrap gap-2">
+                                    <span className="text-xs font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-600 shadow-sm">
+                                        {project.period}
+                                    </span>
+                                    <span className="text-xs font-bold bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700">
+                                        {project.customer}
+                                    </span>
+                                </div>
+                                
+                                <p className="text-slate-600 dark:text-slate-400 text-sm mb-6 leading-relaxed line-clamp-3 min-h-[4.5em]">
+                                  {project.description}
+                                </p>
 
-                              <div className="space-y-4 pt-4 border-t border-dashed border-slate-200 dark:border-slate-700">
-                                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
-                                  <div className="flex items-center gap-1.5 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded text-vn-red dark:text-red-400 font-bold">
-                                    <Users size={14} />
-                                    <span>{project.teamSize}</span>
+                                <div className="space-y-4 pt-4 border-t border-dashed border-slate-200 dark:border-slate-700">
+                                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
+                                    <div className="flex items-center gap-1.5 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded text-vn-red dark:text-red-400 font-bold">
+                                      <Users size={14} />
+                                      <span>{project.teamSize}</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded text-yellow-700 dark:text-yellow-400 font-bold">
+                                      <Briefcase size={14} />
+                                      <span>{project.position}</span>
+                                    </div>
                                   </div>
-                                  <div className="flex items-center gap-1.5 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded text-yellow-700 dark:text-yellow-400 font-bold">
-                                    <Briefcase size={14} />
-                                    <span>{project.position}</span>
+
+                                  <div className="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border border-slate-100 dark:border-slate-700 group-hover/card:border-slate-200 transition-colors">
+                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{ui.common.techStack}</p>
+                                    <p className="text-xs text-slate-800 dark:text-slate-200 font-bold font-mono leading-tight line-clamp-1">{project.technologies}</p>
                                   </div>
                                 </div>
-
-                                <div className="bg-slate-50 dark:bg-slate-900/50 p-3 rounded-xl border border-slate-100 dark:border-slate-700 group-hover/card:border-slate-200 transition-colors">
-                                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">{ui.common.techStack}</p>
-                                  <p className="text-xs text-slate-800 dark:text-slate-200 font-bold font-mono leading-tight line-clamp-1">{project.technologies}</p>
-                                </div>
-                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                    <div className="text-center py-20">
-                        <p className="text-slate-500 dark:text-slate-400 text-lg">{ui.labels.noResults}</p>
-                        <button onClick={() => {setSearchTerm(''); setActiveFilter('All');}} className="mt-4 text-vn-red font-bold hover:underline">{ui.labels.clearFilters}</button>
+                      ))}
                     </div>
-                )}
+                  ) : (
+                      <div className="text-center py-20 flex flex-col justify-center items-center h-full">
+                          <p className="text-slate-500 dark:text-slate-400 text-lg">{ui.labels.noResults}</p>
+                          <button onClick={() => {setSearchTerm(''); setActiveFilter('All');}} className="mt-4 text-vn-red font-bold hover:underline">{ui.labels.clearFilters}</button>
+                      </div>
+                  )}
+                </div>
 
                 {/* Show More Button (Only if NOT searching/filtering and has more projects) */}
                 {filteredProjects.length > 6 && !searchTerm && activeFilter === 'All' && (

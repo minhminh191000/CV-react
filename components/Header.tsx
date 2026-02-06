@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Facebook, Youtube, Linkedin, Github, Globe, Download, X, User, Moon, Sun, Star, Copy, Eye, Heart } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Youtube, Linkedin, Github, Globe, Download, X, User, Moon, Sun, Star, Copy, Eye, Heart, Printer } from 'lucide-react';
 import { useLanguage } from '../LanguageContext';
 import { useTheme } from '../ThemeContext';
 import Toast from './Toast';
@@ -155,14 +155,26 @@ const Header: React.FC = () => {
 
         {/* --- 2b. TOP RIGHT NAVIGATION --- */}
         <div className="absolute top-6 right-6 z-50 flex gap-3 print:hidden">
-            <button 
-                onClick={handlePrint} 
+            {/* DOWNLOAD PDF LINK */}
+            <a 
+                href="/CV_Nguyen_Van_Minh.pdf" 
+                download="CV_Nguyen_Van_Minh.pdf"
                 className="group flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full shadow-lg border border-white/20 text-white hover:bg-white hover:text-vn-red transition-all duration-300"
                 title={ui.common.downloadCV}
             >
                 <Download size={18} />
                 <span className="text-sm font-medium hidden md:block">{ui.common.downloadCV}</span>
+            </a>
+
+            {/* PRINT WEB VERSION BUTTON */}
+            <button 
+                onClick={handlePrint} 
+                className="group flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-md rounded-full shadow-lg border border-white/20 text-white hover:bg-white hover:text-vn-red transition-all duration-300"
+                title="Print Web Version"
+            >
+                <Printer size={18} />
             </button>
+
             <button 
                 onClick={toggleTheme} 
                 className="group flex items-center gap-2 px-3 py-2 bg-white/10 backdrop-blur-md rounded-full shadow-lg border border-white/20 text-white hover:bg-white hover:text-yellow-500 transition-all duration-300"
