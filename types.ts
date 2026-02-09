@@ -119,6 +119,8 @@ export interface CVData {
     dob: string;
     gender: string;
     role: string;
+    avatar: string;
+    cvLink: string;
   };
   contact: ContactInfo;
   education: Education;
