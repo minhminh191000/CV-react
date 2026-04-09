@@ -4,7 +4,7 @@ import { useLanguage } from '../LanguageContext';
 import { useTheme } from '../ThemeContext';
 import Toast from './Toast';
 import avatarImg from '../avatar.jpg';
-import cvPdf from '../CV_Nguyen_Van_Minh.pdf';
+import cvPdf from '../NGUYEN-VAN-MINH.pdf';
 
 const Header: React.FC = () => {
   const { data, language, setLanguage } = useLanguage();
@@ -75,7 +75,7 @@ const Header: React.FC = () => {
   const handleDownloadCV = () => {
     const link = document.createElement('a');
     link.href = cvPdf;
-    link.download = 'CV_Nguyen_Van_Minh.pdf';
+    link.download = 'NGUYEN-VAN-MINH.pdf';
     link.click();
   };
 

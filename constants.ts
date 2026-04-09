@@ -16,7 +16,7 @@ export const DATA_EN: CVData = {
     gender: "Male",
     role: "Odoo Developer | Python Developer | Team Leader",
     avatar: "./avatar.jpg",
-    cvLink: "./CV_Nguyen_Van_Minh.pdf"
+    cvLink: "./NGUYEN-VAN-MINH.pdf"
   },
   contact: {
     phone: "+84 328716036",
@@ -427,7 +427,7 @@ export const DATA_VI: CVData = {
     gender: "Nam",
     role: "Lập trình viên Odoo | Lập trình viên Python | Trưởng nhóm",
     avatar: "./avatar.jpg",
-    cvLink: "./CV_Nguyen_Van_Minh.pdf"
+    cvLink: "./NGUYEN-VAN-MINH.pdf"
   },
   contact: {
     phone: "+84 328716036",
