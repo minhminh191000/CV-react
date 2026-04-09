@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
 	allowedHosts: ['migor.site', 'www.migor.site'],
       },
       plugins: [react()],
+      assetsInclude: ['**/*.pdf'],
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
