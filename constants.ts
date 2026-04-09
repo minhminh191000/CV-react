@@ -2,10 +2,11 @@ import { CVData } from './types';
 
 const SOCIALS = {
   facebook: "https://facebook.com/Migor28",
-  youtube: "https://www.youtube.com/@nguyenvanminh3361",
+  youtube: "https://www.youtube.com/channel/UCajqBdk5-ggySYCaS_g8x4g",
   odooStore: "https://apps.odoo.com/apps/modules/browse?search=Mark+Nguyen",
   linkedin: "https://www.linkedin.com/in/minh-nguy%E1%BB%85n-v%C4%83n-405303251/",
-  github: "https://github.com/minhminh191000"
+  github: "https://github.com/minhminh191000",
+  odooDemo: "erp.migor.site"
 };
 
 export const DATA_EN: CVData = {
@@ -77,15 +78,30 @@ export const DATA_EN: CVData = {
     {
       id: 1,
       name: "HRM",
-      period: "2025 - Present",
+      period: "2025",
       customer: "Global AI (Vinfast Thinh Cuong)",
       description: "Maintenance and debugging of real running system (Number of users is about 4000 people)",
-      teamSize: "2 Dev - 2 BA - 1 PM",
-      position: "Dev lead",
+      teamSize: "2 Developer - 2 BA - 1 PM",
+      position: "Developer Lead",
       responsibilities: [
         "HR, Payroll, HR overtime, HR attendance, Face recognize, API connect Flutter"
       ],
       technologies: "Odoo 15"
+    },
+    {
+      id: 17,
+      name: "MES - Manufacturing Execution System",
+      period: "2026 - Present",
+      customer: "Factory Solution",
+      description: "Deploy and develop a comprehensive MES system for manufacturing management, integrating equipment management, quality control, and production planning.",
+      teamSize: "3 Developer - 1 BA - 1 PM",
+      position: "Developer Lead",
+      responsibilities: [
+        "Equipment Management: track and manage factory equipment lifecycle",
+        "Quality Management: inspection, defect tracking, quality reporting",
+        "Production Management: work orders, production scheduling, progress tracking"
+      ],
+      technologies: "Odoo 19"
     },
     {
       id: 2,
@@ -93,8 +109,8 @@ export const DATA_EN: CVData = {
       period: "2024",
       customer: "Vipsen.vn",
       description: "Feature development for odoo 17",
-      teamSize: "1 Dev",
-      position: "1 Dev",
+      teamSize: "1 Developer",
+      position: "1 Developer",
       responsibilities: [
         "CRM, Sale, Inventory, Custom report"
       ],
@@ -106,8 +122,8 @@ export const DATA_EN: CVData = {
       period: "2024 - 2025",
       customer: "Factory (Z114)",
       description: "Upgrade 30 Odoo modules from version 14 to version 16",
-      teamSize: "1 Dev",
-      position: "1 Dev",
+      teamSize: "1 Developer",
+      position: "1 Developer",
       responsibilities: [
         "Migrate module",
         "Migrate database",
@@ -121,8 +137,8 @@ export const DATA_EN: CVData = {
       period: "2024",
       customer: "AnNamBaoSo",
       description: "Building a system to connect VNpay and return horoscopes to customers on the website Namanbaoso.vn",
-      teamSize: "1 Dev",
-      position: "1 Dev",
+      teamSize: "1 Developer",
+      position: "1 Developer",
       responsibilities: [
         "Connect VNPay",
         "Customize module"
@@ -135,8 +151,8 @@ export const DATA_EN: CVData = {
       period: "2024",
       customer: "24 Factories VDI",
       description: "Build a production management system for the factory combined with the MES system and Build a planning management system",
-      teamSize: "6 DEV - 1BA",
-      position: "Dev + Team Lead",
+      teamSize: "6 Developer - 1BA",
+      position: "Developer + Team Lead",
       responsibilities: [
         "Build core code for the module",
         "Review code on gitlab for all",
@@ -150,8 +166,8 @@ export const DATA_EN: CVData = {
       period: "2024",
       customer: "VDI",
       description: "Build a system for assigning tasks to departments",
-      teamSize: "6 DEV - 1BA",
-      position: "Dev + Team Lead",
+      teamSize: "6 Developer - 1BA",
+      position: "Developer + Team Lead",
       responsibilities: [
         "Build core code for the module",
         "Review code on gitlab for all",
@@ -165,8 +181,8 @@ export const DATA_EN: CVData = {
       period: "2024",
       customer: "Fuji luxury",
       description: "Building comprehensive digital transformation for Fuji luxury",
-      teamSize: "4 DEV - 2BA - 1LEAD - CTO",
-      position: "Dev + Team Lead",
+      teamSize: "4 Developer - 2BA - 1LEAD - CTO",
+      position: "Developer + Team Lead",
       responsibilities: [
         "Provide solutions for each feature",
         "Estimate time and divide work",
@@ -182,8 +198,8 @@ export const DATA_EN: CVData = {
       period: "2024",
       customer: "Winki Group",
       description: "Building comprehensive digital transformation for Winki Group",
-      teamSize: "4 DEV - 2BA - 1LEAD - CTO",
-      position: "Dev + Team Lead",
+      teamSize: "4 Developer - 2BA - 1LEAD - CTO",
+      position: "Developer + Team Lead",
       responsibilities: [
         "Provide solutions for each feature",
         "Estimate time and divide work",
@@ -198,7 +214,7 @@ export const DATA_EN: CVData = {
       period: "2023 - 2024",
       customer: "Private",
       description: "Migrate and build RPA system using akabot for banking processes",
-      teamSize: "5 Dev + 5 BA",
+      teamSize: "5 Developer + 5 BA",
       position: "Developer",
       responsibilities: [
         "Migrate from Uipath to Akabot",
@@ -212,7 +228,7 @@ export const DATA_EN: CVData = {
       period: "2023 - 2024",
       customer: "Private",
       description: "Integration (Magento, Shoppe, Lazada, WooCommerce)",
-      teamSize: "2 Dev - 1 BA",
+      teamSize: "2 Developer - 1 BA",
       position: "Developer + PM",
       responsibilities: [
         "Use webhooks/API to retrieve order and product data",
@@ -227,7 +243,7 @@ export const DATA_EN: CVData = {
       period: "2023",
       customer: "Private",
       description: "Migrate Odoo13 - Odoo16",
-      teamSize: "4 Dev - 1 BA",
+      teamSize: "4 Developer - 1 BA",
       position: "Developer",
       responsibilities: [
         "Migrate odoo base and custom modules",
@@ -242,7 +258,7 @@ export const DATA_EN: CVData = {
       period: "2023",
       customer: "Private",
       description: "Maintenance and support",
-      teamSize: "1 Dev - 1 BA",
+      teamSize: "1 Developer - 1 BA",
       position: "Developer",
       responsibilities: [
         "Tùy chỉnh tính năng mới",
@@ -258,8 +274,8 @@ export const DATA_EN: CVData = {
       period: "2023 - 2024",
       customer: "Private",
       description: "Manage all of BU's test servers",
-      teamSize: "1 Dev",
-      position: "dev",
+      teamSize: "1 Developer",
+      position: "Developer",
       responsibilities: [
         "Deploy system to customer server",
         "Check and backup customer data",
@@ -273,7 +289,7 @@ export const DATA_EN: CVData = {
       period: "2023",
       customer: "Private",
       description: "Create a website to sell alcohol to Japanese people",
-      teamSize: "1 Dev",
+      teamSize: "1 Developer",
       position: "Developer + BA",
       responsibilities: [
         "Create a website to sell alcohol"
@@ -286,7 +302,7 @@ export const DATA_EN: CVData = {
       period: "2023",
       customer: "Private",
       description: "Elderly project IOT POC. Process data from hospital beds to provide timely warnings to doctors",
-      teamSize: "3 Dev - 1 BA",
+      teamSize: "3 Developer - 1 BA",
       position: "Developer",
       responsibilities: [
         "Process data from hospital beds to provide timely warnings to doctors"
@@ -299,8 +315,8 @@ export const DATA_EN: CVData = {
       period: "2022",
       customer: "Private",
       description: "Inter store transfer system",
-      teamSize: "8 DEV - 2 BA",
-      position: "Devops",
+      teamSize: "8 Developer - 2 BA",
+      position: "DevOps",
       responsibilities: [
         "Designed API using Django REST framework",
         "Conducted data analysis using Pandas",
@@ -311,11 +327,14 @@ export const DATA_EN: CVData = {
     }
   ],
   skills: [
-    { name: "Python", skills: "Django, Django rest, Flask, Odoo" },
-    { name: "Frontend", skills: "HTML, CSS" },
-    { name: "Database", skills: "Mysql, Postgresql, Clickhouse..." },
-    { name: "Tools", skills: "CI/CD, Docker, Akabot, UiPath, Grafana..." },
-    { name: "Server", skills: "Linux, Window" }
+    { name: "AI Agent", skills: "Kiro, Claude Code, Antigravity" },
+    { name: "Odoo / ERP", skills: "Odoo 13, Odoo 14, Odoo 15, Odoo 16, Odoo 17, Module Development, Migration, ORM, QWeb, XML-RPC" },
+    { name: "Python", skills: "Django, Django REST Framework, Flask, Pandas, FastAPI" },
+    { name: "Frontend", skills: "HTML, CSS, JavaScript, React, Tailwind CSS, TypeScript" },
+    { name: "Database", skills: "PostgreSQL, MySQL, ClickHouse, Redis" },
+    { name: "DevOps & Tools", skills: "Docker, Git, GitLab CI/CD, Bitbucket Pipelines, Ubuntu, Nginx" },
+    { name: "RPA & Automation", skills: "AkaBot, UiPath, Grafana, IoT Data Processing" },
+    { name: "Soft Skills", skills: "Team Leadership, Technical Solution Design, Code Review, Project Estimation, Mentoring" }
   ],
   activities: [
     {
@@ -470,10 +489,10 @@ export const DATA_VI: CVData = {
     {
       id: 1,
       name: "HRM",
-      period: "2025 - Hiện tại",
+      period: "2025",
       customer: "Global AI (Vinfast Thịnh Cường)",
       description: "Bảo trì và sửa lỗi hệ thống đang chạy thực tế (Số lượng người dùng khoảng 4000)",
-      teamSize: "2 Dev - 2 BA - 1 PM",
+      teamSize: "2 Developer - 2 BA - 1 PM",
       position: "Trưởng nhóm kỹ thuật",
       responsibilities: [
         "Nhân sự, Tính lương, Làm thêm giờ, Chấm công, Nhận diện khuôn mặt, API kết nối Flutter"
@@ -481,13 +500,28 @@ export const DATA_VI: CVData = {
       technologies: "Odoo 15"
     },
     {
+      id: 17,
+      name: "MES - Hệ thống Quản lý Sản xuất",
+      period: "2026 - Hiện tại",
+      customer: "Factory Solution",
+      description: "Triển khai và phát triển hệ thống MES toàn diện cho quản lý sản xuất, tích hợp quản lý thiết bị, kiểm soát chất lượng và lập kế hoạch sản xuất.",
+      teamSize: "3 Developer - 1 BA - 1 PM",
+      position: "Trưởng nhóm kỹ thuật",
+      responsibilities: [
+        "Quản lý thiết bị: theo dõi và quản lý vòng đời thiết bị nhà máy",
+        "Quản lý chất lượng: kiểm tra, theo dõi lỗi, báo cáo chất lượng",
+        "Quản lý sản xuất: lệnh sản xuất, lập lịch, theo dõi tiến độ"
+      ],
+      technologies: "Odoo 19"
+    },
+    {
       id: 2,
       name: "Vipsen Erp",
       period: "2024",
       customer: "Vipsen.vn",
       description: "Phát triển tính năng cho odoo 17",
-      teamSize: "1 Dev",
-      position: "1 Dev",
+      teamSize: "1 Developer",
+      position: "1 Developer",
       responsibilities: [
         "CRM, Bán hàng, Kho, Báo cáo tùy chỉnh"
       ],
@@ -499,8 +533,8 @@ export const DATA_VI: CVData = {
       period: "2024 - 2025",
       customer: "Nhà máy (Z114)",
       description: "Nâng cấp 30 module Odoo từ phiên bản 14 lên phiên bản 16",
-      teamSize: "1 Dev",
-      position: "1 Dev",
+      teamSize: "1 Developer",
+      position: "1 Developer",
       responsibilities: [
         "Chuyển đổi module, Cơ sở dữ liệu",
         "Kiểm thử"
@@ -513,8 +547,8 @@ export const DATA_VI: CVData = {
       period: "2024",
       customer: "AnNamBaoSo",
       description: "Xây dựng hệ thống kết nối VNpay và trả về lá số tử vi cho khách hàng trên website Namanbaoso.vn",
-      teamSize: "1 Dev",
-      position: "1 Dev",
+      teamSize: "1 Developer",
+      position: "1 Developer",
       responsibilities: [
         "Kết nối VNPay",
         "Tùy chỉnh module"
@@ -527,8 +561,8 @@ export const DATA_VI: CVData = {
       period: "2024",
       customer: "24 Nhà máy VDI",
       description: "Xây dựng hệ thống quản lý sản xuất cho nhà máy kết hợp với hệ thống MES và Xây dựng hệ thống quản lý kế hoạch",
-      teamSize: "6 DEV - 1BA",
-      position: "Dev + Trưởng nhóm",
+      teamSize: "6 Developer - 1BA",
+      position: "Developer + Trưởng nhóm",
       responsibilities: [
         "Xây dựng mã nguồn lõi cho module",
         "Đánh giá mã nguồn (Review code) trên gitlab cho cả nhóm",
@@ -542,8 +576,8 @@ export const DATA_VI: CVData = {
       period: "2024",
       customer: "VDI",
       description: "Xây dựng hệ thống giao việc cho các phòng ban",
-      teamSize: "6 DEV - 1BA",
-      position: "Dev + Trưởng nhóm",
+      teamSize: "6 Developer - 1BA",
+      position: "Developer + Trưởng nhóm",
       responsibilities: [
         "Xây dựng mã nguồn lõi cho module",
         "Đánh giá mã nguồn trên gitlab",
@@ -557,8 +591,8 @@ export const DATA_VI: CVData = {
       period: "2024",
       customer: "Fuji luxury",
       description: "Xây dựng chuyển đổi số toàn diện cho Fuji luxury",
-      teamSize: "4 DEV - 2BA - 1LEAD - CTO",
-      position: "Dev + Trưởng nhóm",
+      teamSize: "4 Developer - 2BA - 1LEAD - CTO",
+      position: "Developer + Trưởng nhóm",
       responsibilities: [
         "Đưa ra giải pháp cho từng tính năng",
         "Ước lượng thời gian và phân chia công việc",
@@ -573,8 +607,8 @@ export const DATA_VI: CVData = {
       period: "2024",
       customer: "Winki Group",
       description: "Xây dựng chuyển đổi số toàn diện cho Winki Group",
-      teamSize: "4 DEV - 2BA - 1LEAD - CTO",
-      position: "Dev + Trưởng nhóm",
+      teamSize: "4 Developer - 2BA - 1LEAD - CTO",
+      position: "Developer + Trưởng nhóm",
       responsibilities: [
         "Đưa ra giải pháp cho từng tính năng",
         "Ước lượng thời gian và phân chia công việc",
@@ -589,7 +623,7 @@ export const DATA_VI: CVData = {
       period: "2023 - 2024",
       customer: "Riêng tư",
       description: "Chuyển đổi và xây dựng hệ thống RPA sử dụng AkaBot cho quy trình ngân hàng",
-      teamSize: "5 Dev + 5 BA",
+      teamSize: "5 Developer + 5 BA",
       position: "Lập trình viên",
       responsibilities: [
         "Chuyển đổi từ UiPath sang AkaBot",
@@ -603,7 +637,7 @@ export const DATA_VI: CVData = {
       period: "2023 - 2024",
       customer: "Riêng tư",
       description: "Tích hợp (Magento, Shoppe, Lazada, WooCommerce)",
-      teamSize: "2 Dev - 1 BA",
+      teamSize: "2 Developer - 1 BA",
       position: "Lập trình viên + Quản lý dự án",
       responsibilities: [
         "Sử dụng webhooks/API để lấy dữ liệu đơn hàng và sản phẩm",
@@ -618,7 +652,7 @@ export const DATA_VI: CVData = {
       period: "2023",
       customer: "Riêng tư",
       description: "Nâng cấp hệ thống từ Odoo 13 lên Odoo 16",
-      teamSize: "4 Dev - 1 BA",
+      teamSize: "4 Developer - 1 BA",
       position: "Lập trình viên",
       responsibilities: [
         "Nâng cấp Odoo gốc (base) và module tùy chỉnh",
@@ -633,7 +667,7 @@ export const DATA_VI: CVData = {
       period: "2023",
       customer: "Riêng tư",
       description: "Bảo trì và hỗ trợ hệ thống",
-      teamSize: "1 Dev - 1 BA",
+      teamSize: "1 Developer - 1 BA",
       position: "Lập trình viên",
       responsibilities: [
         "Tùy chỉnh tính năng mới",
@@ -648,7 +682,7 @@ export const DATA_VI: CVData = {
       period: "2023 - 2024",
       customer: "Riêng tư",
       description: "Quản lý tất cả máy chủ thử nghiệm của đơn vị kinh doanh (BU)",
-      teamSize: "1 Dev",
+      teamSize: "1 Developer",
       position: "Lập trình viên",
       responsibilities: [
         "Triển khai hệ thống lên máy chủ khách hàng",
@@ -663,7 +697,7 @@ export const DATA_VI: CVData = {
       period: "2023",
       customer: "Riêng tư",
       description: "Tạo website bán rượu cho người Nhật",
-      teamSize: "1 Dev",
+      teamSize: "1 Developer",
       position: "Lập trình viên + BA",
       responsibilities: [
         "Xây dựng website bán rượu"
@@ -676,7 +710,7 @@ export const DATA_VI: CVData = {
       period: "2023",
       customer: "Riêng tư",
       description: "Dự án thử nghiệm IoT hỗ trợ người cao tuổi.",
-      teamSize: "3 Dev - 1 BA",
+      teamSize: "3 Developer - 1 BA",
       position: "Lập trình viên + BA",
       responsibilities: [
         "Xử lý dữ liệu từ giường bệnh để đưa ra cảnh báo kịp thời cho bác sĩ"
@@ -689,8 +723,8 @@ export const DATA_VI: CVData = {
       period: "2022",
       customer: "Riêng tư",
       description: "Hệ thống chuyển kho giữa các cửa hàng",
-      teamSize: "8 DEV - 2 BA",
-      position: "Devops",
+      teamSize: "8 Developer - 2 BA",
+      position: "DevOps",
       responsibilities: [
         "Thiết kế API sử dụng Django REST framework",
         "Phân tích dữ liệu sử dụng Pandas",
@@ -700,11 +734,14 @@ export const DATA_VI: CVData = {
     }
   ],
   skills: [
-    { name: "Python", skills: "Django, Django rest, Flask, Odoo" },
-    { name: "Frontend", skills: "HTML, CSS" },
-    { name: "Cơ sở dữ liệu", skills: "Mysql, Postgresql, Clickhouse..." },
-    { name: "Công cụ", skills: "CI/CD, Docker, Akabot, UiPath, Grafana..." },
-    { name: "Máy chủ", skills: "Linux, Window" }
+    { name: "AI Agent", skills: "Kiro, Claude Code, Antigravity" },
+    { name: "Odoo / ERP", skills: "Odoo 13, Odoo 14, Odoo 15, Odoo 16, Odoo 17, Module Development, Migration, ORM, QWeb, XML-RPC" },
+    { name: "Python", skills: "Django, Django REST Framework, Flask, Pandas, FastAPI" },
+    { name: "Frontend", skills: "HTML, CSS, JavaScript, React, Tailwind CSS, TypeScript" },
+    { name: "Cơ sở dữ liệu", skills: "PostgreSQL, MySQL, ClickHouse, Redis" },
+    { name: "DevOps & Công cụ", skills: "Docker, Git, GitLab CI/CD, Bitbucket Pipelines, Ubuntu, Nginx" },
+    { name: "RPA & Tự động hóa", skills: "AkaBot, UiPath, Grafana, Xử lý dữ liệu IoT" },
+    { name: "Kỹ năng mềm", skills: "Lãnh đạo nhóm, Thiết kế giải pháp kỹ thuật, Review code, Ước lượng dự án, Mentoring" }
   ],
   activities: [
     {

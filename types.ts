@@ -9,6 +9,7 @@ export interface ContactInfo {
     odooStore?: string;
     linkedin?: string;
     github?: string;
+    odooDemo?: string;
   };
 }
 
