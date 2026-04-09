@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Facebook, Linkedin, Github, Globe, X, User, Moon, 
 import { useLanguage } from '../LanguageContext';
 import { useTheme } from '../ThemeContext';
 import Toast from './Toast';
+import avatarImg from '../avatar.jpg';
 
 const Header: React.FC = () => {
   const { data, language, setLanguage } = useLanguage();
@@ -16,7 +17,7 @@ const Header: React.FC = () => {
 
   // Avatar state
   const [isHovering, setIsHovering] = useState(false);
-  const avatarSrc = "./avatar.jpg";
+  const avatarSrc = avatarImg;
 
   // Stats
   const [viewCount, setViewCount] = useState(0);
