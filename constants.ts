@@ -41,10 +41,10 @@ export const DATA_EN: CVData = {
       summary: "Leading provider of smart factory solutions in Vietnam.",
       role: "Odoo Developer, Team Leader",
       responsibilities: [
-        "Provide solutions",
-        "Manage the developer team",
-        "Developing applications on Odoo system",
-        "Get project and core design"
+        "Propose end-to-end technical solutions for client projects",
+        "Lead and mentor a team of Odoo developers",
+        "Develop and customize applications on the Odoo platform",
+        "Own project intake and design the core architecture"
       ]
     },
     {
@@ -62,7 +62,7 @@ export const DATA_EN: CVData = {
     },
     {
       id: 3,
-      period: "Apr 2021 - 2023",
+      period: "2021 - 2023",
       company: "TINH VAN SOFTWARE",
       website: "https://www.tso.vn/",
       summary: "One of the leading technology groups in Vietnam.",
@@ -77,21 +77,24 @@ export const DATA_EN: CVData = {
   projects: [
     {
       id: 1,
-      name: "HRM",
-      period: "2025",
-      customer: "Global AI (Vinfast Thinh Cuong)",
-      description: "Maintenance and debugging of real running system (Number of users is about 4000 people)",
-      teamSize: "2 Developer - 2 BA - 1 PM",
-      position: "Developer Lead",
+      name: "ERP - Nam Y Duong",
+      period: "2026 - Present",
+      customer: "Nam Y Duong",
+      description: "Maintenance and integration for a traditional medicine ERP. Connect Odoo with multi-channel sales tools and accounting platforms.",
+      teamSize: "1 Developer - 1 BA",
+      position: "Developer",
       responsibilities: [
-        "HR, Payroll, HR overtime, HR attendance, Face recognize, API connect Flutter"
+        "CRM customization and workflow optimization",
+        "Pancake integration for multi-channel orders",
+        "Viettel Post & Viettel Fulfillment shipping integration",
+        "MISA accounting synchronization"
       ],
-      technologies: "Odoo 15"
+      technologies: "Odoo 18"
     },
     {
-      id: 17,
+      id: 2,
       name: "MES - Manufacturing Execution System",
-      period: "2026 - Present",
+      period: "2025 - Present",
       customer: "Factory Solution",
       description: "Deploy and develop a comprehensive MES system for manufacturing management, integrating equipment management, quality control, and production planning.",
       teamSize: "3 Developer - 1 BA - 1 PM",
@@ -101,236 +104,284 @@ export const DATA_EN: CVData = {
         "Quality Management: inspection, defect tracking, quality reporting",
         "Production Management: work orders, production scheduling, progress tracking"
       ],
-      technologies: "Odoo 19"
+      technologies: "Odoo 19, Stock, MRP, Quality"
     },
     {
-      id: 2,
-      name: "Vipsen Erp",
+      id: 3,
+      name: "HRM - VinFast Thinh Cuong",
+      period: "2025",
+      customer: "Global AI (VinFast Thinh Cuong)",
+      description: "Maintenance and debugging of a live HR system serving approximately 4,000 active users.",
+      teamSize: "2 Developer - 2 BA - 1 PM",
+      position: "Team Lead",
+      responsibilities: [
+        "Maintain HR, Payroll, Overtime and Attendance modules",
+        "Integrate face recognition for attendance",
+        "Build REST APIs consumed by a Flutter mobile app"
+      ],
+      technologies: "Odoo 15"
+    },
+    {
+      id: 4,
+      name: "Vipsen ERP",
       period: "2024",
       customer: "Vipsen.vn",
-      description: "Feature development for odoo 17",
+      description: "Feature development on Odoo 17 for CRM, Sales and Inventory.",
       teamSize: "1 Developer",
-      position: "1 Developer",
+      position: "Developer",
       responsibilities: [
-        "CRM, Sale, Inventory, Custom report"
+        "Develop CRM, Sales and Inventory features",
+        "Build custom reports per business requirements"
       ],
       technologies: "Odoo 17"
     },
     {
-      id: 3,
-      name: "Migrate Odoo14 - Odoo16 Community",
-      period: "2024 - 2025",
-      customer: "Factory (Z114)",
-      description: "Upgrade 30 Odoo modules from version 14 to version 16",
-      teamSize: "1 Developer",
-      position: "1 Developer",
-      responsibilities: [
-        "Migrate module",
-        "Migrate database",
-        "Test"
-      ],
-      technologies: "Odoo 14 community -> Odoo 16 community"
-    },
-    {
-      id: 4,
-      name: "Connect VNPay",
-      period: "2024",
-      customer: "AnNamBaoSo",
-      description: "Building a system to connect VNpay and return horoscopes to customers on the website Namanbaoso.vn",
-      teamSize: "1 Developer",
-      position: "1 Developer",
-      responsibilities: [
-        "Connect VNPay",
-        "Customize module"
-      ],
-      technologies: "Odoo 16 community"
-    },
-    {
       id: 5,
-      name: "Production Management & Supervision",
-      period: "2024",
-      customer: "24 Factories VDI",
-      description: "Build a production management system for the factory combined with the MES system and Build a planning management system",
-      teamSize: "6 Developer - 1BA",
-      position: "Developer + Team Lead",
+      name: "Migrate Odoo 14 → Odoo 16 (Z114)",
+      period: "2024 - 2025",
+      customer: "Factory Z114",
+      description: "Upgrade 30 Odoo modules from version 14 to version 16, including data and functional migration.",
+      teamSize: "1 Developer",
+      position: "Developer",
       responsibilities: [
-        "Build core code for the module",
-        "Review code on gitlab for all",
-        "Provide technical solutions for the project"
+        "Migrate custom modules to Odoo 16 API",
+        "Migrate and validate the database",
+        "Run functional and regression testing"
       ],
-      technologies: "Odoo 16 community"
+      technologies: "Odoo 14 Community → Odoo 16 Community"
     },
     {
       id: 6,
-      name: "Workflow PBM",
+      name: "VNPay Integration",
       period: "2024",
-      customer: "VDI",
-      description: "Build a system for assigning tasks to departments",
-      teamSize: "6 Developer - 1BA",
-      position: "Developer + Team Lead",
+      customer: "AnNamBaoSo",
+      description: "Build a system to integrate VNPay payment gateway and return horoscope results to customers on Namanbaoso.vn.",
+      teamSize: "1 Developer",
+      position: "Developer",
       responsibilities: [
-        "Build core code for the module",
-        "Review code on gitlab for all",
-        "Provide technical solutions for the project"
+        "Integrate VNPay payment gateway end-to-end",
+        "Customize Odoo modules to support the business workflow"
       ],
-      technologies: "Odoo 16 community"
+      technologies: "Odoo 16 Community"
     },
     {
       id: 7,
-      name: "FUJI LUXURY ERP",
+      name: "Production Management & Supervision",
       period: "2024",
-      customer: "Fuji luxury",
-      description: "Building comprehensive digital transformation for Fuji luxury",
-      teamSize: "4 Developer - 2BA - 1LEAD - CTO",
+      customer: "VDI (24 Factories)",
+      description: "Build a production management platform deployed across 24 factories, integrating an MES system and a production planning module.",
+      teamSize: "6 Developer - 1 BA",
       position: "Developer + Team Lead",
       responsibilities: [
-        "Provide solutions for each feature",
-        "Estimate time and divide work",
-        "Guide and provide logical solutions for developers",
-        "Involved in development and stream processing",
-        "Building HRM, Maintenance, CRM, Warranty systems"
+        "Develop core modules for the platform",
+        "Lead code review on GitLab for the entire team",
+        "Provide technical solutions and architecture decisions"
       ],
-      technologies: "Odoo 16 community"
+      technologies: "Odoo 16 Community"
     },
     {
       id: 8,
-      name: "WINKI ERP",
+      name: "Workflow PBM",
       period: "2024",
-      customer: "Winki Group",
-      description: "Building comprehensive digital transformation for Winki Group",
-      teamSize: "4 Developer - 2BA - 1LEAD - CTO",
+      customer: "VDI",
+      description: "Build a system for assigning and tracking tasks across departments.",
+      teamSize: "6 Developer - 1 BA",
       position: "Developer + Team Lead",
       responsibilities: [
-        "Provide solutions for each feature",
-        "Estimate time and divide work",
-        "Guide and provide logical solutions for developers",
-        "Building HRM, CRM, Sale, Marketing, Inventory"
+        "Develop core modules",
+        "Lead code review on GitLab",
+        "Provide technical solutions for the project"
       ],
-      technologies: "Odoo 16 community"
+      technologies: "Odoo 16 Community"
     },
     {
       id: 9,
-      name: "BIDV RPA",
-      period: "2023 - 2024",
-      customer: "Private",
-      description: "Migrate and build RPA system using akabot for banking processes",
-      teamSize: "5 Developer + 5 BA",
-      position: "Developer",
+      name: "FUJI LUXURY ERP",
+      period: "2024",
+      customer: "Fuji Luxury",
+      description: "End-to-end digital transformation for Fuji Luxury, covering HR, Maintenance, CRM and Warranty.",
+      teamSize: "4 Developer - 2 BA - 1 Lead - CTO",
+      position: "Developer + Team Lead",
       responsibilities: [
-        "Migrate from Uipath to Akabot",
-        "Fix processes according to new regulations"
+        "Propose solutions for each feature based on customer requirements",
+        "Estimate effort and divide work among the team",
+        "Mentor developers and review logical design",
+        "Implement HRM, Maintenance, CRM and Warranty modules"
       ],
-      technologies: "Akabot, UiPath"
+      technologies: "Odoo 16 Community"
     },
     {
       id: 10,
-      name: "Integration (E-commerce)",
-      period: "2023 - 2024",
-      customer: "Private",
-      description: "Integration (Magento, Shoppe, Lazada, WooCommerce)",
-      teamSize: "2 Developer - 1 BA",
-      position: "Developer + PM",
+      name: "WINKI ERP",
+      period: "2024",
+      customer: "Winki Group",
+      description: "End-to-end digital transformation for Winki Group, covering HR, CRM, Sales, Marketing and Inventory.",
+      teamSize: "4 Developer - 2 BA - 1 Lead - CTO",
+      position: "Developer + Team Lead",
       responsibilities: [
-        "Use webhooks/API to retrieve order and product data",
-        "Learn parties' APIs",
-        "Provide solutions, Develop, Unit test, Deploy and UAT"
+        "Propose solutions for each feature",
+        "Estimate effort and divide work among the team",
+        "Mentor developers",
+        "Implement HRM, CRM, Sales, Marketing and Inventory modules"
       ],
-      technologies: "Odoo16, Magento, Shoppe, Lazada, WooCommerce"
+      technologies: "Odoo 16 Community"
     },
     {
       id: 11,
-      name: "Migrate Odoo13 - Odoo16 (IMPIRIX)",
-      period: "2023",
-      customer: "Private",
-      description: "Migrate Odoo13 - Odoo16",
-      teamSize: "4 Developer - 1 BA",
+      name: "BIDV RPA",
+      period: "2023 - 2024",
+      customer: "BIDV (Private)",
+      description: "Migrate and rebuild RPA processes for banking workflows using AkaBot.",
+      teamSize: "5 Developer - 5 BA",
       position: "Developer",
       responsibilities: [
-        "Migrate odoo base and custom modules",
-        "Research and migrate database",
-        "Unit test, Migrate function"
+        "Migrate banking processes from UiPath to AkaBot",
+        "Update workflows to meet new banking regulations"
       ],
-      technologies: "Odoo 13 -> Odoo 16"
+      technologies: "AkaBot, UiPath"
     },
     {
       id: 12,
-      name: "Maintenance (Sopoka + Baihe + Y te viet)",
-      period: "2023",
+      name: "E-commerce Integration",
+      period: "2023 - 2024",
       customer: "Private",
-      description: "Maintenance and support",
-      teamSize: "1 Developer - 1 BA",
-      position: "Developer",
+      description: "Integrate Odoo with Magento, Shopee, Lazada and WooCommerce platforms for order and product synchronization.",
+      teamSize: "2 Developer - 1 BA",
+      position: "Developer + PM",
       responsibilities: [
-        "Tùy chỉnh tính năng mới",
-        "Xử lý sự cố và Hỗ trợ",
-        "Chẩn đoán và giải quyết các vấn đề kỹ thuật",
-        "Các module: kho, kế toán, đơn bán hàng"
+        "Use webhooks and APIs to sync orders and products into Odoo",
+        "Research third-party APIs across platforms",
+        "Propose solutions, develop, unit test, deploy and UAT"
       ],
-      technologies: "Odoo 13, Odoo 14, Odoo15, Odoo 16"
+      technologies: "Odoo 16, Magento, Shopee, Lazada, WooCommerce"
     },
     {
       id: 13,
-      name: "Manage BU's test servers",
+      name: "Manage BU's Test Servers",
       period: "2023 - 2024",
-      customer: "Private",
-      description: "Manage all of BU's test servers",
-      teamSize: "1 Developer",
-      position: "Developer",
+      customer: "Internal",
+      description: "Manage and operate all test servers for the Business Unit, including deployment, backup and presale support.",
+      teamSize: "1 Developer (DevOps)",
+      position: "DevOps",
       responsibilities: [
-        "Deploy system to customer server",
-        "Check and backup customer data",
-        "Build test servers and support data for presale"
+        "Deploy systems to customer servers",
+        "Regularly check and back up customer data",
+        "Build test servers and prepare demo data for presale"
       ],
-      technologies: "Ubuntu, gitlab runner, bitbucket runner, docker"
+      technologies: "Ubuntu, Docker, GitLab Runner, Bitbucket Runner"
     },
     {
       id: 14,
-      name: "Baby Company",
+      name: "Migrate Odoo 13 → Odoo 16 (IMPIRIX)",
       period: "2023",
-      customer: "Private",
-      description: "Create a website to sell alcohol to Japanese people",
-      teamSize: "1 Developer",
-      position: "Developer + BA",
-      responsibilities: [
-        "Create a website to sell alcohol"
-      ],
-      technologies: "Django rest framework, HTML, CSS"
-    },
-    {
-      id: 16,
-      name: "Elderly project IOT POC",
-      period: "2023",
-      customer: "Private",
-      description: "Elderly project IOT POC. Process data from hospital beds to provide timely warnings to doctors",
-      teamSize: "3 Developer - 1 BA",
+      customer: "IMPIRIX (Private)",
+      description: "Upgrade IMPIRIX system from Odoo 13 to Odoo 16, including base and custom modules.",
+      teamSize: "4 Developer - 1 BA",
       position: "Developer",
       responsibilities: [
-        "Process data from hospital beds to provide timely warnings to doctors"
+        "Migrate Odoo base and custom modules",
+        "Research and migrate the database",
+        "Migrate functions and run unit tests"
       ],
-      technologies: "Python, grafana UI"
+      technologies: "Odoo 13 → Odoo 16"
     },
     {
       id: 15,
-      name: "Inter store transfer",
+      name: "Maintenance (Sopoka + Baihe + Y Te Viet)",
+      period: "2023",
+      customer: "Private",
+      description: "Maintenance and customer support across multiple Odoo deployments.",
+      teamSize: "1 Developer - 1 BA",
+      position: "Developer",
+      responsibilities: [
+        "Customize new features based on customer requests",
+        "Troubleshoot incidents and provide end-user support",
+        "Diagnose and resolve technical issues to minimize downtime",
+        "Maintain Inventory, Accounting and Sales Order modules"
+      ],
+      technologies: "Odoo 13, Odoo 14, Odoo 15, Odoo 16"
+    },
+    {
+      id: 16,
+      name: "Elderly Care IoT (POC)",
+      period: "2023",
+      customer: "Private",
+      description: "IoT proof of concept for elderly care: process sensor data from hospital beds to alert doctors in real time.",
+      teamSize: "3 Developer - 1 BA",
+      position: "Developer",
+      responsibilities: [
+        "Process sensor data streams from hospital beds",
+        "Build alert pipeline and dashboards for medical staff"
+      ],
+      technologies: "Python, Grafana"
+    },
+    {
+      id: 17,
+      name: "Baby Company",
+      period: "2023",
+      customer: "Private",
+      description: "Build an e-commerce website selling Japanese alcohol products to the Japanese market.",
+      teamSize: "1 Developer",
+      position: "Developer + BA",
+      responsibilities: [
+        "Design and implement storefront and order flow",
+        "Collect requirements and define the data model"
+      ],
+      technologies: "Django REST Framework, HTML, CSS"
+    },
+    {
+      id: 18,
+      name: "Inter-store Transfer",
       period: "2022",
       customer: "Private",
-      description: "Inter store transfer system",
+      description: "Inter-store inventory transfer system serving multiple retail locations.",
       teamSize: "8 Developer - 2 BA",
-      position: "DevOps",
+      position: "Developer / DevOps",
       responsibilities: [
-        "Designed API using Django REST framework",
-        "Conducted data analysis using Pandas",
-        "Built role-based access control",
-        "Participated in code reviews"
+        "Design REST APIs with Django REST Framework following best practices",
+        "Run data analysis with Pandas to drive product decisions",
+        "Build role-based access control with Django authentication",
+        "Participate in code reviews and knowledge sharing"
       ],
       technologies: "Django, Pandas"
+    },
+    {
+      id: 19,
+      name: "Human Resources Management",
+      period: "2021 - 2022",
+      customer: "Private",
+      description: "Customize and configure Odoo 15 HR modules covering the full employee lifecycle.",
+      teamSize: "1 Developer",
+      position: "Developer + BA",
+      responsibilities: [
+        "Customize Employees, Recruitment, Time-off, Attendance and Appraisals",
+        "Analyze business requirements and develop tailored solutions",
+        "Ensure seamless integration with existing systems"
+      ],
+      technologies: "Odoo 15"
+    },
+    {
+      id: 20,
+      name: "Employee Management Software",
+      period: "2021 - 2022",
+      customer: "Private",
+      description: "A Flask-based personnel management system enabling organizations to manage employee records efficiently.",
+      teamSize: "1 Developer",
+      position: "Developer",
+      responsibilities: [
+        "Build CRUD for employee details (personal info, job title, salary)",
+        "Implement authentication and role-based access control",
+        "Support bulk employee import from Excel spreadsheets",
+        "Send individual and bulk emails to staff"
+      ],
+      technologies: "Flask, SQLAlchemy, Flask-RESTful, PostgreSQL, Alembic"
     }
   ],
   skills: [
-    { name: "AI Agent", skills: "Kiro, Claude Code, Antigravity" },
-    { name: "Odoo / ERP", skills: "Odoo 13, Odoo 14, Odoo 15, Odoo 16, Odoo 17, Module Development, Migration, ORM, QWeb, XML-RPC" },
-    { name: "Python", skills: "Django, Django REST Framework, Flask, Pandas, FastAPI" },
-    { name: "Frontend", skills: "HTML, CSS, JavaScript, React, Tailwind CSS, TypeScript" },
+    { name: "AI Agent", skills: "Claude Code, Cursor, GitHub Copilot, Kiro" },
+    { name: "Odoo / ERP", skills: "Odoo 13 → Odoo 19, Module Development, Migration, ORM, QWeb, XML-RPC, OWL Framework" },
+    { name: "Python", skills: "Django, Django REST Framework, Flask, FastAPI, Pandas, SQLAlchemy" },
+    { name: "Frontend", skills: "HTML, CSS, JavaScript, TypeScript, React, Tailwind CSS" },
     { name: "Database", skills: "PostgreSQL, MySQL, ClickHouse, Redis" },
     { name: "DevOps & Tools", skills: "Docker, Git, GitLab CI/CD, Bitbucket Pipelines, Ubuntu, Nginx" },
     { name: "RPA & Automation", skills: "AkaBot, UiPath, Grafana, IoT Data Processing" },
@@ -473,7 +524,7 @@ export const DATA_VI: CVData = {
     },
     {
       id: 3,
-      period: "Th4 2021 - 2023",
+      period: "2021 - 2023",
       company: "TINH VAN SOFTWARE",
       website: "https://www.tso.vn/",
       summary: "Một trong những tập đoàn công nghệ hàng đầu Việt Nam.",
@@ -488,256 +539,311 @@ export const DATA_VI: CVData = {
   projects: [
     {
       id: 1,
-      name: "HRM",
-      period: "2025",
-      customer: "Global AI (Vinfast Thịnh Cường)",
-      description: "Bảo trì và sửa lỗi hệ thống đang chạy thực tế (Số lượng người dùng khoảng 4000)",
-      teamSize: "2 Developer - 2 BA - 1 PM",
-      position: "Trưởng nhóm kỹ thuật",
+      name: "ERP - Nam Y Đường",
+      period: "2026 - Hiện tại",
+      customer: "Nam Y Đường",
+      description: "Bảo trì và tích hợp hệ thống ERP cho lĩnh vực y học cổ truyền. Kết nối Odoo với các nền tảng bán hàng đa kênh và phần mềm kế toán.",
+      teamSize: "1 Developer - 1 BA",
+      position: "Lập trình viên",
       responsibilities: [
-        "Nhân sự, Tính lương, Làm thêm giờ, Chấm công, Nhận diện khuôn mặt, API kết nối Flutter"
+        "Tùy chỉnh và tối ưu quy trình CRM",
+        "Tích hợp Pancake cho bán hàng đa kênh",
+        "Tích hợp vận chuyển Viettel Post & Viettel Fulfillment",
+        "Đồng bộ kế toán với MISA"
       ],
-      technologies: "Odoo 15"
+      technologies: "Odoo 18"
     },
     {
-      id: 17,
+      id: 2,
       name: "MES - Hệ thống Quản lý Sản xuất",
-      period: "2026 - Hiện tại",
+      period: "2025 - Hiện tại",
       customer: "Factory Solution",
       description: "Triển khai và phát triển hệ thống MES toàn diện cho quản lý sản xuất, tích hợp quản lý thiết bị, kiểm soát chất lượng và lập kế hoạch sản xuất.",
       teamSize: "3 Developer - 1 BA - 1 PM",
       position: "Trưởng nhóm kỹ thuật",
       responsibilities: [
-        "Quản lý thiết bị: theo dõi và quản lý vòng đời thiết bị nhà máy",
-        "Quản lý chất lượng: kiểm tra, theo dõi lỗi, báo cáo chất lượng",
+        "Quản lý thiết bị: theo dõi vòng đời thiết bị nhà máy",
+        "Quản lý chất lượng: kiểm tra, theo dõi lỗi, báo cáo",
         "Quản lý sản xuất: lệnh sản xuất, lập lịch, theo dõi tiến độ"
       ],
-      technologies: "Odoo 19"
+      technologies: "Odoo 19, Stock, MRP, Quality"
     },
     {
-      id: 2,
-      name: "Vipsen Erp",
+      id: 3,
+      name: "HRM - VinFast Thịnh Cường",
+      period: "2025",
+      customer: "Global AI (VinFast Thịnh Cường)",
+      description: "Bảo trì và sửa lỗi hệ thống nhân sự đang chạy thực tế với khoảng 4.000 người dùng.",
+      teamSize: "2 Developer - 2 BA - 1 PM",
+      position: "Trưởng nhóm",
+      responsibilities: [
+        "Bảo trì các module Nhân sự, Tính lương, Làm thêm giờ, Chấm công",
+        "Tích hợp nhận diện khuôn mặt cho chấm công",
+        "Xây dựng REST API cho ứng dụng di động Flutter"
+      ],
+      technologies: "Odoo 15"
+    },
+    {
+      id: 4,
+      name: "Vipsen ERP",
       period: "2024",
       customer: "Vipsen.vn",
-      description: "Phát triển tính năng cho odoo 17",
+      description: "Phát triển tính năng trên Odoo 17 cho CRM, Bán hàng và Kho.",
       teamSize: "1 Developer",
-      position: "1 Developer",
+      position: "Lập trình viên",
       responsibilities: [
-        "CRM, Bán hàng, Kho, Báo cáo tùy chỉnh"
+        "Phát triển tính năng CRM, Bán hàng và Kho",
+        "Xây dựng báo cáo tùy chỉnh theo yêu cầu nghiệp vụ"
       ],
       technologies: "Odoo 17"
     },
     {
-      id: 3,
-      name: "Nâng cấp Odoo14 - Odoo16 Community",
-      period: "2024 - 2025",
-      customer: "Nhà máy (Z114)",
-      description: "Nâng cấp 30 module Odoo từ phiên bản 14 lên phiên bản 16",
-      teamSize: "1 Developer",
-      position: "1 Developer",
-      responsibilities: [
-        "Chuyển đổi module, Cơ sở dữ liệu",
-        "Kiểm thử"
-      ],
-      technologies: "Odoo 14 community -> Odoo 16 community"
-    },
-    {
-      id: 4,
-      name: "Kết nối VNPay",
-      period: "2024",
-      customer: "AnNamBaoSo",
-      description: "Xây dựng hệ thống kết nối VNpay và trả về lá số tử vi cho khách hàng trên website Namanbaoso.vn",
-      teamSize: "1 Developer",
-      position: "1 Developer",
-      responsibilities: [
-        "Kết nối VNPay",
-        "Tùy chỉnh module"
-      ],
-      technologies: "Odoo 16 community"
-    },
-    {
       id: 5,
-      name: "Quản lý & Giám sát Sản xuất",
-      period: "2024",
-      customer: "24 Nhà máy VDI",
-      description: "Xây dựng hệ thống quản lý sản xuất cho nhà máy kết hợp với hệ thống MES và Xây dựng hệ thống quản lý kế hoạch",
-      teamSize: "6 Developer - 1BA",
-      position: "Developer + Trưởng nhóm",
+      name: "Nâng cấp Odoo 14 → Odoo 16 (Z114)",
+      period: "2024 - 2025",
+      customer: "Nhà máy Z114",
+      description: "Nâng cấp 30 module Odoo từ phiên bản 14 lên 16, bao gồm chuyển đổi dữ liệu và chức năng.",
+      teamSize: "1 Developer",
+      position: "Lập trình viên",
       responsibilities: [
-        "Xây dựng mã nguồn lõi cho module",
-        "Đánh giá mã nguồn (Review code) trên gitlab cho cả nhóm",
-        "Đưa ra giải pháp kỹ thuật cho dự án"
+        "Nâng cấp module tùy chỉnh sang Odoo 16 API",
+        "Chuyển đổi và kiểm tra cơ sở dữ liệu",
+        "Kiểm thử chức năng và hồi quy"
       ],
-      technologies: "Odoo 16 community"
+      technologies: "Odoo 14 Community → Odoo 16 Community"
     },
     {
       id: 6,
-      name: "Quy trình công việc PBM",
+      name: "Tích hợp VNPay",
       period: "2024",
-      customer: "VDI",
-      description: "Xây dựng hệ thống giao việc cho các phòng ban",
-      teamSize: "6 Developer - 1BA",
-      position: "Developer + Trưởng nhóm",
+      customer: "AnNamBaoSo",
+      description: "Xây dựng hệ thống kết nối cổng thanh toán VNPay và trả về lá số tử vi cho khách hàng trên website Namanbaoso.vn.",
+      teamSize: "1 Developer",
+      position: "Lập trình viên",
       responsibilities: [
-        "Xây dựng mã nguồn lõi cho module",
-        "Đánh giá mã nguồn trên gitlab",
-        "Đưa ra giải pháp kỹ thuật"
+        "Tích hợp cổng thanh toán VNPay end-to-end",
+        "Tùy chỉnh module Odoo theo nghiệp vụ"
       ],
-      technologies: "Odoo 16 community"
+      technologies: "Odoo 16 Community"
     },
     {
       id: 7,
-      name: "FUJI LUXURY ERP",
+      name: "Quản lý & Giám sát Sản xuất",
       period: "2024",
-      customer: "Fuji luxury",
-      description: "Xây dựng chuyển đổi số toàn diện cho Fuji luxury",
-      teamSize: "4 Developer - 2BA - 1LEAD - CTO",
+      customer: "VDI (24 Nhà máy)",
+      description: "Xây dựng hệ thống quản lý sản xuất triển khai cho 24 nhà máy, tích hợp MES và module lập kế hoạch sản xuất.",
+      teamSize: "6 Developer - 1 BA",
       position: "Developer + Trưởng nhóm",
       responsibilities: [
-        "Đưa ra giải pháp cho từng tính năng",
-        "Ước lượng thời gian và phân chia công việc",
-        "Hướng dẫn và đưa ra giải pháp logic cho lập trình viên",
-        "Xây dựng hệ thống Nhân sự, Bảo trì, CRM, Bảo hành"
+        "Xây dựng mã nguồn lõi cho nền tảng",
+        "Review code trên GitLab cho toàn nhóm",
+        "Đưa ra giải pháp kỹ thuật và quyết định kiến trúc"
       ],
-      technologies: "Odoo 16 community"
+      technologies: "Odoo 16 Community"
     },
     {
       id: 8,
+      name: "Workflow PBM",
+      period: "2024",
+      customer: "VDI",
+      description: "Xây dựng hệ thống giao và theo dõi công việc giữa các phòng ban.",
+      teamSize: "6 Developer - 1 BA",
+      position: "Developer + Trưởng nhóm",
+      responsibilities: [
+        "Xây dựng mã nguồn lõi cho module",
+        "Review code trên GitLab",
+        "Đưa ra giải pháp kỹ thuật"
+      ],
+      technologies: "Odoo 16 Community"
+    },
+    {
+      id: 9,
+      name: "FUJI LUXURY ERP",
+      period: "2024",
+      customer: "Fuji Luxury",
+      description: "Chuyển đổi số toàn diện cho Fuji Luxury, bao gồm Nhân sự, Bảo trì, CRM và Bảo hành.",
+      teamSize: "4 Developer - 2 BA - 1 Lead - CTO",
+      position: "Developer + Trưởng nhóm",
+      responsibilities: [
+        "Đưa ra giải pháp cho từng tính năng theo yêu cầu khách hàng",
+        "Ước lượng thời gian và phân chia công việc cho nhóm",
+        "Mentor và review thiết kế logic cho lập trình viên",
+        "Xây dựng các module HRM, Bảo trì, CRM và Bảo hành"
+      ],
+      technologies: "Odoo 16 Community"
+    },
+    {
+      id: 10,
       name: "WINKI ERP",
       period: "2024",
       customer: "Winki Group",
-      description: "Xây dựng chuyển đổi số toàn diện cho Winki Group",
-      teamSize: "4 Developer - 2BA - 1LEAD - CTO",
+      description: "Chuyển đổi số toàn diện cho Winki Group, bao gồm Nhân sự, CRM, Bán hàng, Marketing và Kho.",
+      teamSize: "4 Developer - 2 BA - 1 Lead - CTO",
       position: "Developer + Trưởng nhóm",
       responsibilities: [
         "Đưa ra giải pháp cho từng tính năng",
         "Ước lượng thời gian và phân chia công việc",
-        "Hướng dẫn và đưa ra giải pháp logic cho lập trình viên",
-        "Xây dựng Nhân sự, CRM, Bán hàng, Marketing, Kho"
+        "Mentor cho lập trình viên",
+        "Xây dựng các module HRM, CRM, Bán hàng, Marketing và Kho"
       ],
-      technologies: "Odoo 16 community"
+      technologies: "Odoo 16 Community"
     },
     {
-      id: 9,
+      id: 11,
       name: "BIDV RPA",
       period: "2023 - 2024",
-      customer: "Riêng tư",
-      description: "Chuyển đổi và xây dựng hệ thống RPA sử dụng AkaBot cho quy trình ngân hàng",
-      teamSize: "5 Developer + 5 BA",
+      customer: "BIDV (Riêng tư)",
+      description: "Chuyển đổi và xây dựng lại các quy trình RPA cho ngân hàng bằng AkaBot.",
+      teamSize: "5 Developer - 5 BA",
       position: "Lập trình viên",
       responsibilities: [
-        "Chuyển đổi từ UiPath sang AkaBot",
-        "Sửa quy trình theo quy định mới"
+        "Chuyển đổi quy trình ngân hàng từ UiPath sang AkaBot",
+        "Cập nhật quy trình theo quy định ngân hàng mới"
       ],
       technologies: "AkaBot, UiPath"
     },
     {
-      id: 10,
-      name: "Tích hợp (Thương mại điện tử)",
+      id: 12,
+      name: "Tích hợp Thương mại điện tử",
       period: "2023 - 2024",
       customer: "Riêng tư",
-      description: "Tích hợp (Magento, Shoppe, Lazada, WooCommerce)",
+      description: "Tích hợp Odoo với các sàn Magento, Shopee, Lazada và WooCommerce để đồng bộ đơn hàng và sản phẩm.",
       teamSize: "2 Developer - 1 BA",
       position: "Lập trình viên + Quản lý dự án",
       responsibilities: [
-        "Sử dụng webhooks/API để lấy dữ liệu đơn hàng và sản phẩm",
-        "Nghiên cứu API của các đối tác",
-        "Đưa ra giải pháp, Phát triển, Kiểm thử, Triển khai"
+        "Dùng webhooks và API để đồng bộ đơn hàng, sản phẩm vào Odoo",
+        "Nghiên cứu API của các sàn",
+        "Đưa ra giải pháp, phát triển, unit test, triển khai và UAT"
       ],
-      technologies: "Odoo16, Magento, Shoppe, Lazada, WooCommerce"
-    },
-    {
-      id: 11,
-      name: "Nâng cấp Odoo13 - Odoo16 (IMPIRIX)",
-      period: "2023",
-      customer: "Riêng tư",
-      description: "Nâng cấp hệ thống từ Odoo 13 lên Odoo 16",
-      teamSize: "4 Developer - 1 BA",
-      position: "Lập trình viên",
-      responsibilities: [
-        "Nâng cấp Odoo gốc (base) và module tùy chỉnh",
-        "Nghiên cứu và chuyển đổi cơ sở dữ liệu",
-        "Kiểm thử, Chuyển đổi chức năng"
-      ],
-      technologies: "Odoo 13 -> Odoo 16"
-    },
-    {
-      id: 12,
-      name: "Bảo trì (Sopoka + Baihe + Y tế Việt)",
-      period: "2023",
-      customer: "Riêng tư",
-      description: "Bảo trì và hỗ trợ hệ thống",
-      teamSize: "1 Developer - 1 BA",
-      position: "Lập trình viên",
-      responsibilities: [
-        "Tùy chỉnh tính năng mới",
-        "Xử lý sự cố và Hỗ trợ",
-        "Các module: Kho, Kế toán, Đơn bán hàng"
-      ],
-      technologies: "Odoo 13, Odoo 14, Odoo15, Odoo 16"
+      technologies: "Odoo 16, Magento, Shopee, Lazada, WooCommerce"
     },
     {
       id: 13,
-      name: "Quản lý máy chủ thử nghiệm (Test Servers)",
+      name: "Quản lý Test Server của BU",
       period: "2023 - 2024",
-      customer: "Riêng tư",
-      description: "Quản lý tất cả máy chủ thử nghiệm của đơn vị kinh doanh (BU)",
-      teamSize: "1 Developer",
-      position: "Lập trình viên",
+      customer: "Nội bộ",
+      description: "Quản lý và vận hành toàn bộ test server cho Business Unit, bao gồm triển khai, sao lưu và hỗ trợ presale.",
+      teamSize: "1 Developer (DevOps)",
+      position: "DevOps",
       responsibilities: [
         "Triển khai hệ thống lên máy chủ khách hàng",
-        "Kiểm tra và sao lưu dữ liệu khách hàng",
-        "Xây dựng máy chủ test"
+        "Kiểm tra và sao lưu dữ liệu khách hàng định kỳ",
+        "Dựng test server và chuẩn bị dữ liệu demo cho presale"
       ],
-      technologies: "Ubuntu, gitlab runner, bitbucket runner, docker"
+      technologies: "Ubuntu, Docker, GitLab Runner, Bitbucket Runner"
     },
     {
       id: 14,
-      name: "Công ty Baby",
+      name: "Nâng cấp Odoo 13 → Odoo 16 (IMPIRIX)",
       period: "2023",
-      customer: "Riêng tư",
-      description: "Tạo website bán rượu cho người Nhật",
-      teamSize: "1 Developer",
-      position: "Lập trình viên + BA",
+      customer: "IMPIRIX (Riêng tư)",
+      description: "Nâng cấp hệ thống IMPIRIX từ Odoo 13 lên Odoo 16, bao gồm module gốc và module tùy chỉnh.",
+      teamSize: "4 Developer - 1 BA",
+      position: "Lập trình viên",
       responsibilities: [
-        "Xây dựng website bán rượu"
+        "Nâng cấp module gốc và module tùy chỉnh",
+        "Nghiên cứu và chuyển đổi cơ sở dữ liệu",
+        "Chuyển đổi chức năng và chạy unit test"
       ],
-      technologies: "Django rest framework, HTML, CSS"
-    },
-    {
-      id: 16,
-      name: "Dự án người cao tuổi (IoT POC)",
-      period: "2023",
-      customer: "Riêng tư",
-      description: "Dự án thử nghiệm IoT hỗ trợ người cao tuổi.",
-      teamSize: "3 Developer - 1 BA",
-      position: "Lập trình viên + BA",
-      responsibilities: [
-        "Xử lý dữ liệu từ giường bệnh để đưa ra cảnh báo kịp thời cho bác sĩ"
-      ],
-      technologies: "Python, grafana UI"
+      technologies: "Odoo 13 → Odoo 16"
     },
     {
       id: 15,
+      name: "Bảo trì (Sopoka + Baihe + Y Tế Việt)",
+      period: "2023",
+      customer: "Riêng tư",
+      description: "Bảo trì và hỗ trợ khách hàng trên nhiều hệ thống Odoo khác nhau.",
+      teamSize: "1 Developer - 1 BA",
+      position: "Lập trình viên",
+      responsibilities: [
+        "Tùy chỉnh tính năng mới theo yêu cầu khách hàng",
+        "Xử lý sự cố và hỗ trợ người dùng cuối",
+        "Chẩn đoán và xử lý vấn đề kỹ thuật, giảm thiểu downtime",
+        "Bảo trì các module Kho, Kế toán, Đơn bán hàng"
+      ],
+      technologies: "Odoo 13, Odoo 14, Odoo 15, Odoo 16"
+    },
+    {
+      id: 16,
+      name: "IoT Chăm sóc Người cao tuổi (POC)",
+      period: "2023",
+      customer: "Riêng tư",
+      description: "Dự án thử nghiệm IoT cho chăm sóc người cao tuổi: xử lý dữ liệu cảm biến từ giường bệnh để cảnh báo bác sĩ theo thời gian thực.",
+      teamSize: "3 Developer - 1 BA",
+      position: "Lập trình viên",
+      responsibilities: [
+        "Xử lý luồng dữ liệu cảm biến từ giường bệnh",
+        "Xây dựng pipeline cảnh báo và dashboard cho y bác sĩ"
+      ],
+      technologies: "Python, Grafana"
+    },
+    {
+      id: 17,
+      name: "Baby Company",
+      period: "2023",
+      customer: "Riêng tư",
+      description: "Xây dựng website thương mại điện tử bán rượu Nhật cho thị trường Nhật Bản.",
+      teamSize: "1 Developer",
+      position: "Lập trình viên + BA",
+      responsibilities: [
+        "Thiết kế và triển khai giao diện cùng luồng đặt hàng",
+        "Thu thập yêu cầu và định nghĩa data model"
+      ],
+      technologies: "Django REST Framework, HTML, CSS"
+    },
+    {
+      id: 18,
       name: "Chuyển kho liên cửa hàng",
       period: "2022",
       customer: "Riêng tư",
-      description: "Hệ thống chuyển kho giữa các cửa hàng",
+      description: "Hệ thống chuyển kho giữa các cửa hàng bán lẻ.",
       teamSize: "8 Developer - 2 BA",
-      position: "DevOps",
+      position: "Developer / DevOps",
       responsibilities: [
-        "Thiết kế API sử dụng Django REST framework",
-        "Phân tích dữ liệu sử dụng Pandas",
-        "Xây dựng cơ chế kiểm soát truy cập dựa trên vai trò"
+        "Thiết kế REST API với Django REST Framework theo best practice",
+        "Phân tích dữ liệu với Pandas hỗ trợ quyết định sản phẩm",
+        "Xây dựng kiểm soát truy cập theo vai trò với Django auth",
+        "Tham gia code review và chia sẻ kiến thức"
       ],
       technologies: "Django, Pandas"
+    },
+    {
+      id: 19,
+      name: "Quản lý Nhân sự",
+      period: "2021 - 2022",
+      customer: "Riêng tư",
+      description: "Tùy chỉnh và cấu hình các module Nhân sự trên Odoo 15, bao phủ toàn bộ vòng đời nhân viên.",
+      teamSize: "1 Developer",
+      position: "Lập trình viên + BA",
+      responsibilities: [
+        "Tùy chỉnh Employees, Recruitment, Time-off, Attendance, Appraisals",
+        "Phân tích yêu cầu nghiệp vụ và phát triển giải pháp tùy chỉnh",
+        "Đảm bảo tích hợp liền mạch với hệ thống hiện có"
+      ],
+      technologies: "Odoo 15"
+    },
+    {
+      id: 20,
+      name: "Phần mềm Quản lý Nhân viên",
+      period: "2021 - 2022",
+      customer: "Riêng tư",
+      description: "Hệ thống quản lý nhân sự xây dựng trên Flask giúp tổ chức quản lý hồ sơ nhân viên hiệu quả.",
+      teamSize: "1 Developer",
+      position: "Lập trình viên",
+      responsibilities: [
+        "Xây dựng CRUD cho thông tin nhân viên (thông tin cá nhân, chức danh, lương)",
+        "Triển khai xác thực và phân quyền theo vai trò",
+        "Hỗ trợ import nhân viên hàng loạt từ Excel",
+        "Gửi email cá nhân và hàng loạt tới nhân viên"
+      ],
+      technologies: "Flask, SQLAlchemy, Flask-RESTful, PostgreSQL, Alembic"
     }
   ],
   skills: [
-    { name: "AI Agent", skills: "Kiro, Claude Code, Antigravity" },
-    { name: "Odoo / ERP", skills: "Odoo 13, Odoo 14, Odoo 15, Odoo 16, Odoo 17, Module Development, Migration, ORM, QWeb, XML-RPC" },
-    { name: "Python", skills: "Django, Django REST Framework, Flask, Pandas, FastAPI" },
-    { name: "Frontend", skills: "HTML, CSS, JavaScript, React, Tailwind CSS, TypeScript" },
+    { name: "AI Agent", skills: "Claude Code, Cursor, GitHub Copilot, Kiro" },
+    { name: "Odoo / ERP", skills: "Odoo 13 → Odoo 19, Phát triển module, Migration, ORM, QWeb, XML-RPC, OWL Framework" },
+    { name: "Python", skills: "Django, Django REST Framework, Flask, FastAPI, Pandas, SQLAlchemy" },
+    { name: "Frontend", skills: "HTML, CSS, JavaScript, TypeScript, React, Tailwind CSS" },
     { name: "Cơ sở dữ liệu", skills: "PostgreSQL, MySQL, ClickHouse, Redis" },
     { name: "DevOps & Công cụ", skills: "Docker, Git, GitLab CI/CD, Bitbucket Pipelines, Ubuntu, Nginx" },
     { name: "RPA & Tự động hóa", skills: "AkaBot, UiPath, Grafana, Xử lý dữ liệu IoT" },
