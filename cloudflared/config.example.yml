@@ -1,0 +1,16 @@
+# Mẫu cho /etc/cloudflared/config.yml khi cloudflared chạy bằng systemd trên host.
+#
+# File này chỉ để tham khảo. Script ./deploy.sh --tunnel sẽ tự ghi khối
+# `ingress` bên dưới vào config thật (có backup) rồi restart service.
+
+tunnel: <TUNNEL_ID>
+credentials-file: /root/.cloudflared/<TUNNEL_ID>.json
+
+loglevel: info
+
+ingress:
+  - hostname: cv.migor.site
+    # container cv-web publish 127.0.0.1:8080 trên host
+    service: http://localhost:8080
+  # Bắt buộc phải có rule catch-all cuối cùng
+  - service: http_status:404

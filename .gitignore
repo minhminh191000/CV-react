@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Docker / Cloudflare
+.env
+cloudflared/config.yml
+cloudflared/*.json
+cloudflared/cert.pem
+*.bak.*

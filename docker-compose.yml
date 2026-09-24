@@ -1,0 +1,25 @@
+services:
+  # ---------------------------------------------------------------
+  # Web: build React + Vite -> nginx phục vụ file tĩnh
+  #
+  # cloudflared chạy bằng systemd TRÊN HOST, nên container chỉ cần
+  # listen trên loopback của host; Internet vào qua tunnel, không
+  # qua port này. Xem README mục "Nối với cloudflared".
+  # ---------------------------------------------------------------
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    image: cv-react-web:latest
+    container_name: cv-web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
