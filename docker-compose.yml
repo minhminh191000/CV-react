@@ -27,7 +27,7 @@ services:
   # ---------------------------------------------------------------
   # Cloudflare Tunnel — CÁCH 1: tunnel quản lý trên dashboard (token)
   #   docker compose --profile tunnel up -d
-  # Trong dashboard, Public hostname migor.site -> Service http://web:80
+  # Trong dashboard, Public hostname cv.migor.site -> Service http://web:80
   # ---------------------------------------------------------------
   cloudflared:
     image: cloudflare/cloudflared:latest

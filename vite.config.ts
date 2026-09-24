@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
       server: {
         port: 3000,
         host: '0.0.0.0',
-	allowedHosts: ['migor.site', 'www.migor.site'],
+	allowedHosts: ['cv.migor.site'],
       },
       plugins: [react()],
       assetsInclude: ['**/*.pdf'],

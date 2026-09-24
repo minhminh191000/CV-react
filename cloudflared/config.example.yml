@@ -8,10 +8,8 @@ credentials-file: /etc/cloudflared/<TUNNEL_ID>.json
 loglevel: info
 
 ingress:
-  - hostname: migor.site
+  - hostname: cv.migor.site
     # "web" là tên service trong docker-compose.yml -> Docker DNS tự phân giải
-    service: http://web:80
-  - hostname: www.migor.site
     service: http://web:80
   # Bắt buộc phải có rule catch-all cuối cùng
   - service: http_status:404
