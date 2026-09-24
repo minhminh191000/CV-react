@@ -28,3 +28,4 @@ dist-ssr
 cloudflared/config.yml
 cloudflared/*.json
 cloudflared/cert.pem
+*.bak.*

@@ -1,6 +1,10 @@
 services:
   # ---------------------------------------------------------------
   # Web: build React + Vite -> nginx phục vụ file tĩnh
+  #
+  # cloudflared chạy bằng systemd TRÊN HOST, nên container chỉ cần
+  # listen trên loopback của host; Internet vào qua tunnel, không
+  # qua port này. Xem README mục "Nối với cloudflared".
   # ---------------------------------------------------------------
   web:
     build:
@@ -11,59 +15,11 @@ services:
     image: cv-react-web:latest
     container_name: cv-web
     restart: unless-stopped
-    # Cổng này chỉ cần khi cloudflared chạy NGOÀI Docker (trên host).
-    # Nếu dùng service cloudflared bên dưới, có thể bỏ ports đi cho kín.
     ports:
-      - "${WEB_PORT:-8080}:80"
-    networks:
-      - cvnet
+      - "127.0.0.1:${WEB_PORT:-8080}:80"
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://127.0.0.1/healthz"]
       interval: 30s
       timeout: 3s
       retries: 3
       start_period: 5s
-
-  # ---------------------------------------------------------------
-  # Cloudflare Tunnel — CÁCH 1: tunnel quản lý trên dashboard (token)
-  #   docker compose --profile tunnel up -d
-  # Trong dashboard, Public hostname cv.migor.site -> Service http://web:80
-  # ---------------------------------------------------------------
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: cv-cloudflared
-    restart: unless-stopped
-    profiles: ["tunnel"]
-    # cloudflared tự đọc token từ biến môi trường TUNNEL_TOKEN
-    environment:
-      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
-    command: tunnel --no-autoupdate run
-    depends_on:
-      web:
-        condition: service_healthy
-    networks:
-      - cvnet
-
-  # ---------------------------------------------------------------
-  # Cloudflare Tunnel — CÁCH 2: tunnel quản lý bằng file config
-  #   docker compose --profile tunnel-config up -d
-  # Cần: cloudflared/config.yml + cloudflared/<TUNNEL_ID>.json + cert.pem
-  # ---------------------------------------------------------------
-  cloudflared-config:
-    image: cloudflare/cloudflared:latest
-    container_name: cv-cloudflared-config
-    restart: unless-stopped
-    profiles: ["tunnel-config"]
-    command: tunnel --no-autoupdate --config /etc/cloudflared/config.yml run
-    volumes:
-      - ./cloudflared:/etc/cloudflared:ro
-    depends_on:
-      web:
-        condition: service_healthy
-    networks:
-      - cvnet
-
-networks:
-  cvnet:
-    name: cvnet
-    driver: bridge

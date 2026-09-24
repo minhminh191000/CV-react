@@ -1,15 +1,16 @@
-# Copy thành cloudflared/config.yml rồi sửa TUNNEL_ID cho đúng.
-# Dùng khi chạy: docker compose --profile tunnel-config up -d
+# Mẫu cho /etc/cloudflared/config.yml khi cloudflared chạy bằng systemd trên host.
+#
+# File này chỉ để tham khảo. Script ./deploy.sh --tunnel sẽ tự ghi khối
+# `ingress` bên dưới vào config thật (có backup) rồi restart service.
 
 tunnel: <TUNNEL_ID>
-credentials-file: /etc/cloudflared/<TUNNEL_ID>.json
+credentials-file: /root/.cloudflared/<TUNNEL_ID>.json
 
-# Ghi log vừa đủ
 loglevel: info
 
 ingress:
   - hostname: cv.migor.site
-    # "web" là tên service trong docker-compose.yml -> Docker DNS tự phân giải
-    service: http://web:80
+    # container cv-web publish 127.0.0.1:8080 trên host
+    service: http://localhost:8080
   # Bắt buộc phải có rule catch-all cuối cùng
   - service: http_status:404

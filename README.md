@@ -4,7 +4,16 @@
 
 # Nguyen Van Minh — Portfolio (React + Vite)
 
-Trang CV cá nhân, build bằng Vite, chạy production bằng Docker (nginx) và public ra Internet qua Cloudflare Tunnel (`cloudflared`) tại **https://cv.migor.site**.
+Trang CV cá nhân. Production chạy trong Docker (nginx phục vụ bản build tĩnh) và public ra Internet qua Cloudflare Tunnel tại **https://cv.migor.site**.
+
+```
+Internet ──► Cloudflare ──► cloudflared (systemd, trên host)
+                                 │  ingress: cv.migor.site
+                                 ▼
+                          127.0.0.1:8080  ──►  container cv-web (nginx :80)
+```
+
+Container chỉ bind vào `127.0.0.1`, nên ngoài tunnel ra không ai chạm tới được.
 
 ---
 
@@ -19,139 +28,114 @@ npm run dev          # http://localhost:3000
 
 ---
 
-## 2. Chạy bằng Docker (production)
+## 2. Deploy lên cv.migor.site
 
-Image dùng multi-stage build: `node:22-alpine` build ra `dist/`, rồi `nginx:1.27-alpine` phục vụ file tĩnh.
+Trên máy chủ (nơi `cloudflared` đang chạy bằng systemd):
 
 ```bash
-cp .env.example .env     # chỉnh lại nếu cần
-docker compose up -d --build web
-curl http://localhost:8080/healthz    # -> ok
+git clone https://github.com/minhminh191000/CV-react.git
+cd CV-react
+sudo ./deploy.sh --tunnel
 ```
+
+Script làm tuần tự:
+
+1. `docker compose up -d --build web` — build image, chạy container, chờ healthcheck xanh.
+2. Backup `/etc/cloudflared/config.yml` thành `.bak.<timestamp>`.
+3. Thêm/ghi đè **đúng một** rule `cv.migor.site → http://localhost:8080` vào `ingress`, **giữ nguyên các hostname khác** đang chạy trên cùng tunnel, và luôn đẩy `http_status:404` xuống cuối.
+4. `cloudflared tunnel ingress validate` — sai thì tự khôi phục từ backup rồi dừng.
+5. `cloudflared tunnel route dns <TUNNEL_ID> cv.migor.site` — tạo DNS record (bỏ qua nếu đã có).
+6. `systemctl restart cloudflared` và kiểm tra service còn sống.
+7. Poll `https://cv.migor.site/healthz` tới khi trả `200`.
+
+Chạy không có `--tunnel` thì script chỉ build + chạy container rồi in ra đoạn config cần thêm, không đụng gì vào hệ thống.
+
+**Tuỳ chọn:**
+
+```bash
+sudo ./deploy.sh --tunnel --port 9090            # đổi cổng trên host
+sudo ./deploy.sh --tunnel --domain cv2.migor.site
+sudo ./deploy.sh --tunnel --config /etc/cloudflared/cv.yml
+```
+
+### Cập nhật code về sau
+
+```bash
+git pull
+sudo ./deploy.sh          # build lại container, không cần đụng cloudflared nữa
+```
+
+---
+
+## 3. Làm tay (nếu không dùng script)
+
+```bash
+docker compose up -d --build web
+curl http://127.0.0.1:8080/healthz          # -> ok
+```
+
+Sửa `/etc/cloudflared/config.yml`:
+
+```yaml
+ingress:
+  # ... các hostname khác giữ nguyên ...
+  - hostname: cv.migor.site
+    service: http://localhost:8080
+  - service: http_status:404      # luôn là rule cuối cùng
+```
+
+```bash
+sudo cloudflared tunnel ingress validate
+sudo cloudflared tunnel route dns <TUNNEL_NAME> cv.migor.site
+sudo systemctl restart cloudflared
+curl -I https://cv.migor.site/healthz       # -> 200
+```
+
+Mẫu config đầy đủ: [`cloudflared/config.example.yml`](cloudflared/config.example.yml).
+
+---
+
+## 4. Biến môi trường
+
+Copy `.env.example` thành `.env` nếu cần đổi mặc định:
 
 | Biến | Mặc định | Ý nghĩa |
 |---|---|---|
-| `WEB_PORT` | `8080` | Cổng publish ra host (chỉ cần khi cloudflared chạy ngoài Docker) |
-| `TUNNEL_TOKEN` | — | Token Cloudflare Tunnel, dùng cho profile `tunnel` |
+| `WEB_PORT` | `8080` | Cổng container bind trên `127.0.0.1` của host |
 | `GEMINI_API_KEY` | — | Vite inline lúc build (hiện code chưa dùng, để trống được) |
 
-Build lại sau khi sửa code:
-
-```bash
-docker compose up -d --build web
-```
-
 ---
 
-## 3. Nối Docker với Cloudflare Tunnel
-
-Có 3 cách, chọn **một** cách phù hợp với `cloudflared` đang có.
-
-### Cách A — cloudflared chạy trong Docker, dùng token (khuyến nghị)
-
-Tunnel được quản lý trên dashboard Zero Trust.
-
-1. Vào **Cloudflare Zero Trust → Networks → Tunnels →** chọn tunnel → **Configure** → copy token.
-2. Bỏ token vào `.env`:
-
-   ```env
-   TUNNEL_TOKEN=eyJhIjoi...
-   ```
-
-3. Trong tab **Public Hostname** của tunnel, bấm **Add a public hostname**:
-
-   | Subdomain | Domain | Type | URL |
-   |---|---|---|---|
-   | `cv` | `migor.site` | HTTP | `web:80` |
-
-   `web` là **tên service** trong `docker-compose.yml`; Docker DNS trong network `cvnet` tự phân giải thành IP container, nên không cần mở port ra host.
-
-   Cloudflare tự tạo bản ghi DNS `cv` (CNAME `<TUNNEL_ID>.cfargotunnel.com`, proxied) khi bạn lưu public hostname — không cần vào tab DNS thêm record tay.
-
-4. Chạy cả 2 service:
-
-   ```bash
-   docker compose --profile tunnel up -d --build
-   docker compose logs -f cloudflared
-   ```
-
-   Log báo `Registered tunnel connection` là đã nối xong.
-
-> Khi dùng cách này có thể xoá block `ports:` của service `web` trong `docker-compose.yml` để container không lộ ra ngoài — traffic chỉ đi qua tunnel.
-
-### Cách B — cloudflared chạy trong Docker, dùng file config
-
-Dành cho tunnel quản lý bằng CLI (`cloudflared tunnel create`).
+## 5. Vận hành
 
 ```bash
-cp cloudflared/config.example.yml cloudflared/config.yml
-# sửa <TUNNEL_ID> trong config.yml
-cp ~/.cloudflared/<TUNNEL_ID>.json cloudflared/
-
-# Tạo DNS record cho subdomain (chỉ cần chạy 1 lần)
-cloudflared tunnel route dns <TUNNEL_NAME> cv.migor.site
-
-docker compose --profile tunnel-config up -d --build
-```
-
-`config.yml` đã trỏ sẵn `cv.migor.site` về `http://web:80`.
-
-### Cách C — cloudflared đã cài sẵn trên host (systemd)
-
-Nếu `cloudflared` đang chạy như service trên máy chủ thì không cần đụng vào nó, chỉ cần đổi ingress từ vite dev server (`localhost:3000`) sang container nginx:
-
-```yaml
-# /etc/cloudflared/config.yml
-ingress:
-  - hostname: cv.migor.site
-    service: http://localhost:8080
-  - service: http_status:404
-```
-
-Nhớ tạo DNS record nếu chưa có:
-
-```bash
-cloudflared tunnel route dns <TUNNEL_NAME> cv.migor.site
-```
-
-```bash
-docker compose up -d --build web          # container listen 8080 trên host
-sudo systemctl restart cloudflared
-```
-
----
-
-## 4. Kiểm tra sau khi nối
-
-```bash
-docker compose ps                       # web phải ở trạng thái healthy
-curl -I http://localhost:8080/          # 200 OK (cách C, hoặc khi còn mở ports)
-curl -I https://cv.migor.site/healthz   # 200 OK qua Cloudflare
-docker compose logs -f cloudflared
+docker compose ps                     # cv-web phải là healthy
+docker compose logs -f web            # log nginx (đã lấy IP thật từ CF-Connecting-IP)
+journalctl -u cloudflared -f          # log tunnel
+docker compose down                   # tắt site
 ```
 
 Lỗi hay gặp:
 
 | Triệu chứng | Nguyên nhân |
 |---|---|
-| Cloudflare trả **502/1033** | Ingress trỏ sai. Trong Docker phải là `http://web:80`, không phải `localhost:8080` (localhost trong container cloudflared là chính nó). |
-| **1016 / DNS_PROBE** ở `cv.migor.site` | Chưa có DNS record `cv` trỏ về tunnel. Thêm public hostname trên dashboard hoặc chạy `cloudflared tunnel route dns`. |
-| Vite dev báo **"Blocked request... not allowed"** | Domain chưa có trong `allowedHosts` của `vite.config.ts` (chỉ ảnh hưởng `npm run dev`, không ảnh hưởng bản Docker). |
-| Tunnel không lên, log `token is invalid` | `TUNNEL_TOKEN` trong `.env` sai hoặc chưa set. |
-| Đổi code nhưng web không đổi | Phải build lại image: `docker compose up -d --build web`. |
-| `cloudflared` không thấy `web` | Hai container không chung network `cvnet`. |
+| Cloudflare trả **502 / 1033** | Container chưa chạy hoặc sai cổng. Kiểm tra `curl http://127.0.0.1:8080/healthz` trên host. |
+| **1016** hoặc không phân giải được DNS | Chưa có record `cv`. Chạy `cloudflared tunnel route dns <TUNNEL_NAME> cv.migor.site`. |
+| Cloudflare trả **404** | Rule `cv.migor.site` nằm **sau** `http_status:404` trong `ingress`. Catch-all phải ở cuối. |
+| Hostname khác trên tunnel chết theo | Khôi phục: `sudo cp /etc/cloudflared/config.yml.bak.<timestamp> /etc/cloudflared/config.yml && sudo systemctl restart cloudflared` |
+| Sửa code nhưng web không đổi | Phải build lại image: `./deploy.sh` hoặc `docker compose up -d --build web`. |
 
 ---
 
-## 5. Cấu trúc file liên quan
+## 6. Cấu trúc file deploy
 
 ```
-Dockerfile                    # multi-stage build -> nginx
+deploy.sh                     # build container + nối vào cloudflared trên host
+Dockerfile                    # multi-stage: node build -> nginx serve
 nginx.conf                    # SPA fallback, gzip, cache, /healthz, real IP từ Cloudflare
-docker-compose.yml            # service web + cloudflared (profiles: tunnel, tunnel-config)
-.dockerignore
+docker-compose.yml            # service web, bind 127.0.0.1:8080
 .env.example
 cloudflared/config.example.yml
 ```
 
-`.env`, `cloudflared/config.yml`, `cloudflared/*.json` và `cert.pem` đã được đưa vào `.gitignore` — **không commit token hay credentials**.
+`.env` và credentials tunnel đã nằm trong `.gitignore` — **không commit token**.
