@@ -1,0 +1,17 @@
+# Copy thành cloudflared/config.yml rồi sửa TUNNEL_ID cho đúng.
+# Dùng khi chạy: docker compose --profile tunnel-config up -d
+
+tunnel: <TUNNEL_ID>
+credentials-file: /etc/cloudflared/<TUNNEL_ID>.json
+
+# Ghi log vừa đủ
+loglevel: info
+
+ingress:
+  - hostname: migor.site
+    # "web" là tên service trong docker-compose.yml -> Docker DNS tự phân giải
+    service: http://web:80
+  - hostname: www.migor.site
+    service: http://web:80
+  # Bắt buộc phải có rule catch-all cuối cùng
+  - service: http_status:404
