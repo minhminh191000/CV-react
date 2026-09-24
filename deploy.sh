@@ -58,6 +58,50 @@ dns_manual_hint() {
 EOF
 }
 
+EDGE_IP=""
+LAST_CODE=000
+LOCAL_DNS_STALE=0
+
+# IP edge hỏi thẳng 1.1.1.1, dùng khi resolver local còn cache hỏng
+edge_ip() {
+    if command -v dig >/dev/null 2>&1; then
+        dig +short @1.1.1.1 A "$DOMAIN" 2>/dev/null | grep -E '^[0-9]+\.[0-9]' | head -1
+    elif command -v nslookup >/dev/null 2>&1; then
+        nslookup "$DOMAIN" 1.1.1.1 2>/dev/null \
+            | awk '/^Address: /{print $2}' | grep -vF '#' | grep -E '^[0-9]+\.[0-9]' | head -1
+    fi
+}
+
+# Site đã phục vụ được qua Cloudflare chưa? Resolver local hỏng vẫn tính là online.
+probe_site() {
+    local code
+    code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 "https://${DOMAIN}/healthz" 2>/dev/null || true)"
+    if [ "$code" = "200" ]; then
+        return 0
+    fi
+
+    [ -n "$EDGE_IP" ] || EDGE_IP="$(edge_ip || true)"
+    if [ -n "$EDGE_IP" ]; then
+        code="$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 \
+            --resolve "${DOMAIN}:443:${EDGE_IP}" "https://${DOMAIN}/healthz" 2>/dev/null || true)"
+        if [ "$code" = "200" ]; then
+            LOCAL_DNS_STALE=1
+            return 0
+        fi
+    fi
+
+    LAST_CODE="${code:-000}"
+    return 1
+}
+
+site_online() {
+    printf '\n%s Xong. CV đã online tại https://%s%s\n' "$GRN$BLD" "$DOMAIN" "$RST"
+    if [ "$LOCAL_DNS_STALE" -eq 1 ]; then
+        warn "máy này chưa phân giải được $DOMAIN (cache DNS local), nhưng site đã sống"
+        warn "xoá cache: sudo resolvectl flush-caches"
+    fi
+}
+
 usage() {
     sed -n '2,8p' "$0" | sed 's/^# \{0,1\}//'
     cat <<EOF
@@ -143,9 +187,17 @@ INGRESS_SNIPPET="ingress:
 # 2. Nối vào cloudflared
 # ---------------------------------------------------------------------
 if [ "$WRITE_TUNNEL" -eq 0 ]; then
+    info "Kiểm tra https://${DOMAIN}/healthz"
+    if probe_site; then
+        site_online
+        printf '   (cloudflared đã cấu hình sẵn, không cần chạy --tunnel)\n'
+        exit 0
+    fi
+
     cat <<EOF
 
-Container đã chạy. Phần cloudflared làm nốt bằng:
+Container đã chạy nhưng https://${DOMAIN} chưa phục vụ được (mã: ${LAST_CODE}).
+Nối phần cloudflared bằng:
 
   sudo ./deploy.sh --tunnel
 
@@ -250,47 +302,20 @@ ok "$CF_SERVICE đang chạy"
 # ---------------------------------------------------------------------
 # 3. Kiểm tra đầu cuối
 # ---------------------------------------------------------------------
-# IP edge lấy thẳng từ 1.1.1.1, dùng để kiểm tra khi resolver local còn cache hỏng
-edge_ip() {
-    if command -v dig >/dev/null 2>&1; then
-        dig +short @1.1.1.1 A "$DOMAIN" 2>/dev/null | grep -E '^[0-9]+\.[0-9]' | head -1
-    elif command -v nslookup >/dev/null 2>&1; then
-        nslookup "$DOMAIN" 1.1.1.1 2>/dev/null \
-            | awk '/^Address: /{print $2}' | grep -vF '#' | grep -E '^[0-9]+\.[0-9]' | head -1
-    fi
-}
-
 info "Kiểm tra qua Cloudflare: https://${DOMAIN}/healthz"
-EDGE_IP="$(edge_ip || true)"
-[ -n "$EDGE_IP" ] && ok "IP edge theo 1.1.1.1: $EDGE_IP"
-
 for i in $(seq 1 12); do
-    CODE="$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 "https://${DOMAIN}/healthz" 2>/dev/null || true)"
-    [ -n "$CODE" ] || CODE=000
-    if [ "$CODE" = "200" ]; then
-        printf '\n%s Xong. CV đã online tại https://%s%s\n' "$GRN$BLD" "$DOMAIN" "$RST"
+    if probe_site; then
+        site_online
         exit 0
-    fi
-
-    # Resolver local hỏng nhưng site vẫn sống -> xác nhận bằng IP edge
-    if [ "$CODE" = "000" ] && [ -n "$EDGE_IP" ]; then
-        CODE2="$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 \
-            --resolve "${DOMAIN}:443:${EDGE_IP}" "https://${DOMAIN}/healthz" 2>/dev/null || true)"
-        if [ "$CODE2" = "200" ]; then
-            printf '\n%s Xong. CV đã online tại https://%s%s\n' "$GRN$BLD" "$DOMAIN" "$RST"
-            warn "máy này chưa phân giải được $DOMAIN (cache DNS local), nhưng site đã sống"
-            warn "xoá cache: sudo resolvectl flush-caches"
-            exit 0
-        fi
     fi
     sleep 5
 done
 
 if [ "${DNS_READY:-0}" -eq 1 ]; then
-    warn "https://${DOMAIN}/healthz trả về $CODE (DNS có thể cần vài phút để lan)"
+    warn "https://${DOMAIN}/healthz trả về $LAST_CODE (DNS có thể cần vài phút để lan)"
     warn "xem log: journalctl -u ${CF_SERVICE} -f"
 else
-    warn "https://${DOMAIN}/healthz trả về $CODE — DNS record chưa được tạo (xem hướng dẫn bên trên)"
+    warn "https://${DOMAIN}/healthz trả về $LAST_CODE — DNS record chưa được tạo (xem hướng dẫn bên trên)"
     dns_manual_hint
 fi
 exit 1
