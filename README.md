@@ -120,6 +120,7 @@ Lỗi hay gặp:
 | Triệu chứng | Nguyên nhân |
 |---|---|
 | Cloudflare trả **502 / 1033** | Container chưa chạy hoặc sai cổng. Kiểm tra `curl http://127.0.0.1:8080/healthz` trên host. |
+| `Could not resolve host` ở **máy mình**, nhưng `nslookup cv.migor.site 1.1.1.1` **có** trả IP | Resolver local cache NXDOMAIN từ trước khi tạo record. Chạy `sudo resolvectl flush-caches`. Kiểm tra site vẫn sống: `curl -I --resolve cv.migor.site:443:<IP> https://cv.migor.site/healthz`. |
 | **1016** hoặc không phân giải được DNS (`healthz` trả `000`) | Chưa có record `cv`. Chạy `cloudflared tunnel route dns <TUNNEL_NAME> cv.migor.site`, hoặc thêm tay CNAME `cv` → `<TUNNEL_ID>.cfargotunnel.com` (Proxied). |
 | `Error locating origin cert: client didn't specify origincert path` | Thiếu `cert.pem`. Chạy `cloudflared tunnel login` (**không** sudo) rồi chạy lại script — nó tự dò cert ở home của `$SUDO_USER`. Hoặc thêm CNAME tay như trên. |
 | Cloudflare trả **404** | Rule `cv.migor.site` nằm **sau** `http_status:404` trong `ingress`. Catch-all phải ở cuối. |

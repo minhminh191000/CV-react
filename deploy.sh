@@ -229,6 +229,15 @@ else
     fi
 fi
 
+# Resolver local có thể đã cache NXDOMAIN từ trước khi record tồn tại
+if [ "${DNS_READY:-0}" -eq 1 ]; then
+    if command -v resolvectl >/dev/null 2>&1; then
+        resolvectl flush-caches 2>/dev/null && ok "đã xoá cache DNS local" || true
+    elif command -v systemd-resolve >/dev/null 2>&1; then
+        systemd-resolve --flush-caches 2>/dev/null && ok "đã xoá cache DNS local" || true
+    fi
+fi
+
 info "Restart $CF_SERVICE"
 systemctl restart "$CF_SERVICE"
 sleep 3
@@ -241,13 +250,38 @@ ok "$CF_SERVICE đang chạy"
 # ---------------------------------------------------------------------
 # 3. Kiểm tra đầu cuối
 # ---------------------------------------------------------------------
+# IP edge lấy thẳng từ 1.1.1.1, dùng để kiểm tra khi resolver local còn cache hỏng
+edge_ip() {
+    if command -v dig >/dev/null 2>&1; then
+        dig +short @1.1.1.1 A "$DOMAIN" 2>/dev/null | grep -E '^[0-9]+\.[0-9]' | head -1
+    elif command -v nslookup >/dev/null 2>&1; then
+        nslookup "$DOMAIN" 1.1.1.1 2>/dev/null \
+            | awk '/^Address: /{print $2}' | grep -vF '#' | grep -E '^[0-9]+\.[0-9]' | head -1
+    fi
+}
+
 info "Kiểm tra qua Cloudflare: https://${DOMAIN}/healthz"
+EDGE_IP="$(edge_ip || true)"
+[ -n "$EDGE_IP" ] && ok "IP edge theo 1.1.1.1: $EDGE_IP"
+
 for i in $(seq 1 12); do
     CODE="$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 "https://${DOMAIN}/healthz" 2>/dev/null || true)"
     [ -n "$CODE" ] || CODE=000
     if [ "$CODE" = "200" ]; then
         printf '\n%s Xong. CV đã online tại https://%s%s\n' "$GRN$BLD" "$DOMAIN" "$RST"
         exit 0
+    fi
+
+    # Resolver local hỏng nhưng site vẫn sống -> xác nhận bằng IP edge
+    if [ "$CODE" = "000" ] && [ -n "$EDGE_IP" ]; then
+        CODE2="$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 \
+            --resolve "${DOMAIN}:443:${EDGE_IP}" "https://${DOMAIN}/healthz" 2>/dev/null || true)"
+        if [ "$CODE2" = "200" ]; then
+            printf '\n%s Xong. CV đã online tại https://%s%s\n' "$GRN$BLD" "$DOMAIN" "$RST"
+            warn "máy này chưa phân giải được $DOMAIN (cache DNS local), nhưng site đã sống"
+            warn "xoá cache: sudo resolvectl flush-caches"
+            exit 0
+        fi
     fi
     sleep 5
 done
