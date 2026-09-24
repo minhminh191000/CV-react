@@ -20,6 +20,44 @@ ok()   { printf '%s  ok%s %s\n' "$GRN" "$RST" "$*"; }
 warn() { printf '%s  !!%s %s\n' "$YEL" "$RST" "$*"; }
 die()  { printf '%s  xx%s %s\n' "$RED" "$RST" "$*" >&2; exit 1; }
 
+# Tìm origin cert (cert.pem) — `cloudflared tunnel route dns` bắt buộc phải có.
+# Chạy qua sudo thì HOME là /root nên cloudflared không thấy cert nằm ở home user.
+find_origin_cert() {
+    local c
+    for c in \
+        "${TUNNEL_ORIGIN_CERT:-}" \
+        "/etc/cloudflared/cert.pem" \
+        "/root/.cloudflared/cert.pem" \
+        "${SUDO_USER:+/home/${SUDO_USER}/.cloudflared/cert.pem}" \
+        /home/*/.cloudflared/cert.pem
+    do
+        if [ -n "$c" ] && [ -f "$c" ]; then
+            printf '%s' "$c"
+            return 0
+        fi
+    done
+    return 1
+}
+
+# In hướng dẫn tạo DNS record bằng tay khi cloudflared không tự làm được
+dns_manual_hint() {
+    cat <<EOF
+
+  Tạo DNS record bằng tay: Cloudflare Dashboard > ${DOMAIN#*.} > DNS > Add record
+
+      Type:   CNAME
+      Name:   ${DOMAIN%%.*}
+      Target: ${TUNNEL_REF:-<TUNNEL_ID>}.cfargotunnel.com
+      Proxy:  Proxied (đám mây màu cam)
+
+  Hoặc lấy origin cert rồi chạy lại script:
+
+      cloudflared tunnel login          # KHÔNG dùng sudo, cert lưu vào ~/.cloudflared/cert.pem
+      sudo ./deploy.sh --tunnel
+
+EOF
+}
+
 usage() {
     sed -n '2,8p' "$0" | sed 's/^# \{0,1\}//'
     cat <<EOF
@@ -166,15 +204,29 @@ import yaml, os
 print((yaml.safe_load(open(os.environ['CF_CONFIG'])) or {}).get('tunnel', '') or '')
 " 2>/dev/null || true)"
 
-if [ -n "$TUNNEL_REF" ]; then
-    info "Tạo DNS record cho $DOMAIN (tunnel: $TUNNEL_REF)"
-    if cloudflared tunnel route dns "$TUNNEL_REF" "$DOMAIN"; then
-        ok "DNS record đã sẵn sàng"
-    else
-        warn "không tạo được DNS record — có thể record đã tồn tại, kiểm tra tab DNS trên Cloudflare"
-    fi
-else
+if [ -z "$TUNNEL_REF" ]; then
     warn "không đọc được tunnel id trong $CF_CONFIG, bỏ qua bước tạo DNS"
+    DNS_READY=0
+else
+    info "Tạo DNS record cho $DOMAIN (tunnel: $TUNNEL_REF)"
+    DNS_READY=0
+    if ORIGIN_CERT="$(find_origin_cert)"; then
+        ok "origin cert: $ORIGIN_CERT"
+        if DNS_LOG="$(TUNNEL_ORIGIN_CERT="$ORIGIN_CERT" cloudflared tunnel route dns "$TUNNEL_REF" "$DOMAIN" 2>&1)"; then
+            ok "DNS record đã sẵn sàng"
+            DNS_READY=1
+        elif printf '%s' "$DNS_LOG" | grep -qiE 'already exists|record with that host|already configured'; then
+            ok "DNS record đã tồn tại từ trước"
+            DNS_READY=1
+        else
+            printf '%s\n' "$DNS_LOG" | sed 's/^/     /'
+            warn "cloudflared không tạo được DNS record"
+            dns_manual_hint
+        fi
+    else
+        warn "không tìm thấy cert.pem, cloudflared không tự tạo DNS record được"
+        dns_manual_hint
+    fi
 fi
 
 info "Restart $CF_SERVICE"
@@ -200,6 +252,11 @@ for i in $(seq 1 12); do
     sleep 5
 done
 
-warn "https://${DOMAIN}/healthz trả về $CODE (DNS có thể cần vài phút để lan)"
-warn "xem log: journalctl -u ${CF_SERVICE} -f"
+if [ "${DNS_READY:-0}" -eq 1 ]; then
+    warn "https://${DOMAIN}/healthz trả về $CODE (DNS có thể cần vài phút để lan)"
+    warn "xem log: journalctl -u ${CF_SERVICE} -f"
+else
+    warn "https://${DOMAIN}/healthz trả về $CODE — DNS record chưa được tạo (xem hướng dẫn bên trên)"
+    dns_manual_hint
+fi
 exit 1
